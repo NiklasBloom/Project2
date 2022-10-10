@@ -1,4 +1,5 @@
 package gymmanagement;
+import java.util.ArrayList;
 
 /*
 You must include this Java class, which define a fitness class the members can check in. You can define the
