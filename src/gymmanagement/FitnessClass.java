@@ -1,7 +1,10 @@
 package gymmanagement;
 import java.util.ArrayList;
+//can load a list of fitnessClasses
+//add instance variable for list of classes
+//The ArrayList holds members I assume
 
-/*
+/**
 You must include this Java class, which define a fitness class the members can check in. You can define the
 instance variables and methods needed. You must use the enum class Time in this class or lose 2 points.
 Your software shall not allow a member to check in if
@@ -24,6 +27,8 @@ public class FitnessClass extends MemberDatabase{
     private Time time;
     private Instructor instructor;
     private String className;
+    private ArrayList<Member> members; // i think this is correct
+    private ArrayList<Member> guests; // separate array for guests?
 
     /**
     define the time of a fitness class in hh:mm
@@ -67,6 +72,8 @@ public class FitnessClass extends MemberDatabase{
         JENNIFER,
         DENISE,
         KIM,
+        DAVIS,
+        EMMA
     }
 
     /**
