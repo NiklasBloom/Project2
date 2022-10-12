@@ -35,9 +35,9 @@ public class FitnessClass extends MemberDatabase{
     Defines the time variable for FitnessClass
      */
     public enum Time{
-        PILATES(9 ,30),
-        SPINNING(14 , 0),
-        CARDIO(14 , 0);
+        PILATES(9 ,30), //MORNING 9:30
+        SPINNING(14 , 0), //AFTERNOON 14:00
+        CARDIO(14 , 0); //EVENING 18:30
 
         private final int hour;
         private final int minutes;
