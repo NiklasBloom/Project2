@@ -23,21 +23,53 @@ name, the time of the class, and the list of members who have already checked in
 the schedule is for “today” only, you do not need to handle a multiple-day schedule.
  */
 
-public class FitnessClass extends MemberDatabase{
+public class FitnessClass{
     private Time time;
     private Instructor instructor;
     private String className;
-    private ArrayList<Member> members; // i think this is correct
+    private ArrayList<Member> members; // I think this is correct
     private ArrayList<Member> guests; // separate array for guests?
+    private Member.Location location;
+
+
+    /**
+     Location constants for Location data field
+     */
+    enum Location{
+        Bridgewater,
+        Edison,
+        Franklin,
+        Piscataway,
+        Somerville;
+
+        /**
+         Takes a String locStr and if its characters matches one of the locations, then return
+         that location.
+         @Param takes a string which should be one of the Gym Locations
+         @returns a location variable if the string parameter matches one of the locations
+         */
+        public static Member.Location parseLocation(String locStr){
+            String locNormalized = locStr.toLowerCase();
+            Member.Location location;
+            return switch (locNormalized) {  //TODO: maybe make this its own method
+                case "piscataway" -> Member.Location.Piscataway;
+                case "bridgewater" -> Member.Location.Bridgewater;
+                case "edison" -> Member.Location.Edison;
+                case "franklin" -> Member.Location.Franklin;
+                case "somerville" -> Member.Location.Somerville;
+                default -> null;
+            };
+        }
+    }
 
     /**
     define the time of a fitness class in hh:mm
     Defines the time variable for FitnessClass
      */
     public enum Time{
-        PILATES(9 ,30), //MORNING 9:30
-        SPINNING(14 , 0), //AFTERNOON 14:00
-        CARDIO(14 , 0); //EVENING 18:30
+        MORNING(9 ,30), //MORNING 9:30
+        AFTERNOON(14 , 0), //AFTERNOON 14:00
+        EVENING(18 , 30); //EVENING 18:30
 
         private final int hour;
         private final int minutes;
@@ -48,7 +80,7 @@ public class FitnessClass extends MemberDatabase{
         }
         /**
         returns the time in String format
-         @returns the time of the instance in String format
+         @return the time of the instance in String format
          */
         @Override
         public String toString(){
@@ -57,11 +89,25 @@ public class FitnessClass extends MemberDatabase{
 
         /**
         Compares and sees if two fitnessClass times are the same
-         @Param a time to see if equal to this time
+         @param otherTime a time to see if equal to this time
          @returns a boolean, true if equal, false otherwise
          */
         public boolean equals(Time otherTime){
             return (this.hour == otherTime.hour && this.minutes == otherTime.minutes);
+        }
+
+        public static Time returnTime(String time){
+            time = time.toLowerCase();
+            switch(time){
+                case("morning"):
+                    return Time.MORNING;
+                case("afternoon"):
+                    return Time.AFTERNOON;
+                case("evening"):
+                    return Time.EVENING;
+                default:
+                    return null;
+            }
         }
     }
 
@@ -73,60 +119,41 @@ public class FitnessClass extends MemberDatabase{
         DENISE,
         KIM,
         DAVIS,
-        EMMA
+        EMMA;
+
+        public static Instructor returnInstructor(String instructorName){
+            instructorName = instructorName.toLowerCase();
+            switch(instructorName){
+                case("jennifer"):
+                    return Instructor.JENNIFER;
+                case("denise"):
+                    return Instructor.DENISE;
+                case("kim"):
+                    return Instructor.KIM;
+                case("davis"):
+                    return Instructor.DAVIS;
+                case("emma"):
+                    return Instructor.EMMA;
+                default:
+                    return null;
+            }
+        }
     }
 
     /**
-    one argument constructor, given the fitnessClass as a strin calls the Superclass
-     which is MemberDatabase
+    four argument constructor, Can be used for creating a fitness Class from the classSchedule.txt
+     If a paramter does not match one of the enum constants for classname, time, instructor, or location,
+     then the value for that field is null
      @Param A String which should be one of the fitness Classes, Pilates, Cardio, or Spinning
      */
-    public FitnessClass(String fitnessClass) {
-        super();
+    public FitnessClass(String fitnessClass, String instructor, String time, String Location) {
         this.className = fitnessClass;
-        this.instructor = setInstructor(fitnessClass);
-        this.time = setTime(fitnessClass);
+        this.instructor = Instructor.returnInstructor(instructor); //this calls on method in Instructor Enum Class
+        this.time = Time.returnTime(time);
+        this.location = Member.Location.parseLocation(Location);
+
     }
 
-    /**
-    sets the instructor datafield according to the fitnessClass parameter
-     @Param A String which should be one of the fitness Classes, Pilates, Cardio, or Spinning
-     @returns the instructor of the given fitnessClass
-     */
-    public Instructor setInstructor(String fitnessClass){
-        String fitnessClassLowerCase = fitnessClass.toLowerCase();
-        switch(fitnessClassLowerCase){
-            case "pilates":
-                return Instructor.JENNIFER;
-            case "cardio":
-                return Instructor.KIM;
-            case "spinning":
-                return Instructor.DENISE;
-            default:
-                return null; //just to detect and raise an error
-        }
-    }
-
-
-    /**
-    Sets the time data field according to the FitnessClass String given, If it matches with
-     one of the FitnessClasses
-     @Param A String which should be one of the fitness Classes, Pilates, Cardio, or Spinning
-     @return the time of the class
-     */
-    public Time setTime(String fitnessClass){
-        String fitnessClassLowerCase = fitnessClass.toLowerCase();
-        switch(fitnessClassLowerCase){
-            case "pilates":
-                return Time.PILATES;
-            case "cardio":
-                return Time.CARDIO;
-            case "spinning":
-                return Time.SPINNING;
-            default:
-                return null; //just to detect and raise an error
-        }
-    }
 
 
     public String getClassName() {
@@ -147,23 +174,24 @@ public class FitnessClass extends MemberDatabase{
         ** participants **
             Jane Doe, DOB: 5/1/1996, Membership expires 3/30/2023, Location: EDISON, 08837, MIDDLESEX
      */
-    @Override
+
     public void print() {
         System.out.println(this.className + " - " + this.instructor + " " + this.time);
-        if(!isEmpty()) {
-            System.out.println("\t** participants **");
-            super.print();
-        }
+        /*if(!isEmpty()) {
+        System.out.println("\t** participants **");
+            //super.print();
+        }*/
     }
 
     /**
      Remove method for FitnessClass, Same as Member Database
-     @Param the member reference we want to search for and remove from this instance's mlist
+     @param member the member reference we want to search for and remove from this instance's mlist
      @return true if the member is removed, false otherwise
      */
-    @Override
     public boolean remove(Member member) {
-        return super.remove(member);
+
+
+        return true;
     }
 
     /**
@@ -171,19 +199,21 @@ public class FitnessClass extends MemberDatabase{
      @Param the member we want to add to the mlist
      @return true if the member is added, false otherwise
      */
-    @Override
+
     public boolean add(Member member) {
-        return super.add(member);
+        return true;
+
     }
 
     /**
     returns the member reference from the mlist
-     @Param the member we want the full member reference
+     @param member the member we want the full member reference
      @return the member reference that is in the mlist for the instance
      */
-    @Override
+
     public Member getMember(Member member) {
-        return super.getMember(member);
+        Member jeff = new Member("jeff","jeff",new Date("abruh"));
+        return jeff;
     }
 
 }

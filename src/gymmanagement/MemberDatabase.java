@@ -179,11 +179,12 @@ public class MemberDatabase {
         }
         for(int i = 0; i < this.size; i++){
             if(this.mlist[i] != null) {
-                if(this instanceof FitnessClass){   //FitnessClass requires tabs
+                /*if(this instanceof FitnessClass){   //FitnessClass requires tabs
                     System.out.println("\t\t" + this.mlist[i].toString()); //uses member toString method
                 } else {                            //standard member DB; no tabs
                     System.out.println(this.mlist[i].toString());
-                }
+                }*/
+                System.out.println(this.mlist[i].toString());
             }
         }
     }
