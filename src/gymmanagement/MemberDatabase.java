@@ -139,7 +139,7 @@ public class MemberDatabase {
         return true;
     }
 
-    /*
+    /**
     The remove() method remove a member from the list. This method maintains the relative order of the
     members in the list after the remove, -3 points if this is not done correctly.
     The container does not decrease in capacity.
@@ -169,7 +169,7 @@ public class MemberDatabase {
 
 
 
-    /*
+    /**
     print the array contents as is
      */
     public void print () {
@@ -189,7 +189,7 @@ public class MemberDatabase {
         }
     }
 
-    /*
+    /**
     PC command, to display the list of members in the database ordered by the county names and then the zip codes;
     that is, if the locations are in the same county, ordered by the zip codes.
     Ordered by
@@ -221,7 +221,7 @@ public class MemberDatabase {
         this.print();
     }
 
-    /*
+    /**
     PD command, display the list of members in the database ordered by the expiration dates. If two expiration dates
     are the same, their order doesn’t matter.
      */

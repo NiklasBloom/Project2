@@ -27,8 +27,8 @@ public class FitnessClass{
     private Time time;
     private Instructor instructor;
     private String className;
-    private ArrayList<Member> members; // I think this is correct
-    private ArrayList<Member> guests; // separate array for guests?
+    private ArrayList<Member> membersList; // I think this is correct
+    private ArrayList<Member> guestsList; // separate array for guests?
     private Member.Location location;
 
 
@@ -201,8 +201,26 @@ public class FitnessClass{
      */
 
     public boolean add(Member member) {
+        if(this.find(member) >= 0){
+            return false;
+        }
+        this.membersList.add(member);
         return true;
+    }
 
+    private int find(Member member) {
+        if(this.membersList.isEmpty()){//if true that list is empty
+            return -1; //CONSTANTS ENUM CLASS
+        }
+
+        for (int i = 0; i < this.membersList.size(); i++){
+            if(this.membersList.get(i) != null) {
+                if (this.membersList.get(i).equals(member)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     /**
@@ -212,8 +230,36 @@ public class FitnessClass{
      */
 
     public Member getMember(Member member) {
-        Member jeff = new Member("jeff","jeff",new Date("abruh"));
-        return jeff;
+        if(this.membersList.isEmpty()){
+            return null;
+        }
+        if(member == null){
+            return null;
+        }
+
+
+        return null;
     }
+
+    /*
+    if(this.isEmpty()){
+            return null;
+        }
+        if(member == null){
+            return null;
+        } else if (member.getFname() == null || member.getLname() == null || member.getDob() == null){
+            return null;
+        }
+        for (int i = 0; i < size; i++){
+            if(this.mlist[i] != null) {
+                if(this.mlist[i].equals(member)) {
+                    return this.mlist[i];
+                }
+            }
+        }
+        return null;
+    }
+     */
+
 
 }
