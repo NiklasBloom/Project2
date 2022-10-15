@@ -1,0 +1,322 @@
+Index: src/gymmanagement/ClassSchedule.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package gymmanagement;\r\n\r\n/**\r\n * just an array of classes,\r\n * Each FitnessClass instance is also an arraylist which has the members in the FitnessClass\r\n * has print methods and can use I/O in this class\r\n * needs to I/O the class schedule Input the file for class schedule,\r\n * go through line by line\r\n * Initialize fitness classes with the time, intstructor, and location\r\n * add FitnessClass to the fitnessClass Array\r\n */\r\npublic class ClassSchedule {\r\n    private FitnessClass [] classes;\r\n    private int numClasses;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/gymmanagement/ClassSchedule.java b/src/gymmanagement/ClassSchedule.java
+--- a/src/gymmanagement/ClassSchedule.java	(revision 3b644ec5cb5416b5fc6b0aeda68d3b2000efdb93)
++++ b/src/gymmanagement/ClassSchedule.java	(date 1665798719422)
+@@ -6,10 +6,157 @@
+  * has print methods and can use I/O in this class
+  * needs to I/O the class schedule Input the file for class schedule,
+  * go through line by line
+- * Initialize fitness classes with the time, intstructor, and location
++ * Initialize fitness classes with the time, instructor, and location
+  * add FitnessClass to the fitnessClass Array
+  */
+ public class ClassSchedule {
+     private FitnessClass [] classes;
+     private int numClasses;
++
++    public static final int NOT_FOUND = -1;
++
++    /*
++    no argument constructor
++     */
++    public ClassSchedule() {
++        this.numClasses = 0;
++        this.classes = new FitnessClass[4];
++    }
++
++    private int find(FitnessClass fitnessclass) {
++        if(isEmpty()){//if true that list is empty
++            return NOT_FOUND;
++        }
++
++        for (int i = 0; i < this.classes.length; i++){
++            if(this.classes[i] != null) {
++                if (this.classes[i].equals(fitnessclass)) {
++                    return i;
++                }
++            }
++        }
++        return NOT_FOUND;
++    }
++
++    public FitnessClass getClass(FitnessClass fitnessClass) {
++        if(this.isEmpty()){
++            return null;
++        }
++        if(fitnessClass == null){
++            return null;
++        } //else if (member.getFname() == null || member.getLname() == null || member.getDob() == null){
++            //return null;
++        //}
++        for (int i = 0; i < this.classes.length; i++){
++            if(this.classes[i] != null) {
++                if(this.classes[i].equals(fitnessClass)) {
++                    return this.classes[i];
++                }
++            }
++        }
++        return null;
++    }
++
++    /*
++        getter method to return the classes
++    */
++    public FitnessClass[] getClasslist(){
++        return this.classes;
++    }
++
++    /*
++    getter method that returns size
++     */
++    public int getSize() {return this.classes.length;}
++
++    /*
++    copy array into new array with array size +4
++     */
++    private void grow(){
++        FitnessClass[] arr = new FitnessClass[this.classes.length+4];
++        System.arraycopy(this.classes, 0, arr, 0, this.classes.length);
++        this.classes = arr;
++    }
++
++    /*
++    adds a member to the array
++    Returns false if the member already exists in the array
++    Checks if capacity of array is full and then inc size by 4 if full
++     */
++    public boolean add(FitnessClass fitnessClass){
++        if(this.find(fitnessClass) >= 0){
++            return false;
++        }
++        if(!this.checkCapacity()){ //check capacity if have to increase size by 4
++            this.grow();
++        }
++        //get index of first null element in array
++        int firstNull = -1;
++        for (int i = 0; i < this.classes.length; i++) { //should size be size of array or # of members?
++            if (this.classes[i] == null) {
++                firstNull = i;
++                break;
++            }
++        }
++        classes[firstNull] = fitnessClass;
++        //firstnull should never be -1, since we grew array if empty, a first null should always exist
++
++        return true;
++    }
++
++    /*
++    helper method for add method to check whether there is room in mlist array to add another element.
++    If there is no room, the add element will grow() the array.
++     */
++    public boolean checkCapacity(){
++        boolean arrCapacity = false;
++        for(int i = 0; i < this.classes.length; i++){
++            if(this.classes[i] == null){
++                arrCapacity = true;//is any element null? if so then not full
++            }
++        }
++        return arrCapacity;
++    }
++
++    /*
++      iterates through array, if an element != null, that is there is a member existing in
++       the list, then return false, if no member in whole array, return true
++     */
++    public boolean isEmpty() {
++        //dont check for size, because could be any size but we just removed all the members
++        // because we dont make the array smaller when we remove members
++        for (int i = 0; i < this.classes.length; i++){
++            if (this.classes[i] != null) {
++                return false;
++            }
++        }
++        return true;
++    }
++
++    /*
++    The remove() method remove a member from the list. This method maintains the relative order of the
++    members in the list after the remove, -3 points if this is not done correctly.
++    The container does not decrease in capacity.
++     */
++    public boolean remove(FitnessClass fitnessClass) {
++        int memberIndex = find(fitnessClass);
++        if(memberIndex == NOT_FOUND){
++            return false; //member does not exist in array
++        }
++        FitnessClass[] arr = new FitnessClass[this.classes.length];
++        boolean emptyFlag = true;
++        for(int i = 0; i < this.classes.length; i++){
++            if(i == memberIndex)
++                continue; //skip this index, dont copy this member over
++            if(this.classes[i] != null) {
++                if(emptyFlag)
++                    emptyFlag = false;
++                arr[i] = this.classes[i];
++            }
++        }
++
++        this.classes = arr;
++
++        return true;
++    }
+ }
+Index: src/gymmanagement/GymManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\r\n * GymManager keeps a MemberDatabase and an array of FitnessClass objects, processing commands to alter those from standard input.\r\n * Reads input using a Scanner object, tokenizing each line by groups of non-whitespace characters.\r\n * Uses a continuous while loop to read from standard input until a termination command is given.\r\n * Reports status and results by printing to standard output.\r\n *\r\n * @author Maxim Yacun, Niklas Bloom\r\n */\r\npackage gymmanagement;\r\n\r\nimport java.util.Scanner;\r\nimport java.util.StringTokenizer;\r\n\r\n/**\r\n * Defines a GymManager object with the main run() method, helpers to execute commands, and databases to store information.\r\n */\r\npublic class GymManager {\r\n    private MemberDatabase DB;\r\n    private FitnessClass[] classes;\r\n\r\n    /**\r\n     * Uses a while loop to continuously read command lines from standard input and manage the member and class databases using helper methods.\r\n     */\r\n    public void run() {\r\n        System.out.println(\"Gym Manager running...\");\r\n        DB = new MemberDatabase();\r\n        classes = new FitnessClass[]{new FitnessClass(\"Pilates\"), new FitnessClass(\"Spinning\"), new FitnessClass(\"Cardio\")};\r\n\r\n        Scanner sc = new Scanner(System.in);\r\n        String currentLine = sc.nextLine();\r\n\r\n        while (true) {\r\n            StringTokenizer lineTokens = new StringTokenizer(currentLine);\r\n\r\n            if (lineTokens.hasMoreTokens()) {\r\n                if (commandParser(lineTokens))\r\n                    break;\r\n            } else { //skip blank line and print a blank line\r\n                System.out.println();\r\n            }\r\n            currentLine = sc.nextLine();\r\n        }\r\n        System.out.println(\"Gym Manager terminated.\");\r\n    }\r\n\r\n    /**\r\n     * Parses standard input into appropriate commands and passes information to helper methods to handle command work.\r\n     * @param lineTokens StringTokenizer object of the command line to parse.\r\n     * @return true if we get a Q command to signify termination of the program, false otherwise; signifying run() should continue.\r\n     */\r\n    private boolean commandParser(StringTokenizer lineTokens) {\r\n        String command = lineTokens.nextToken();\r\n        switch (command) {\r\n            case \"Q\" -> { return true; }\r\n            case \"A\" -> addMember(lineTokens);\r\n            case \"R\" -> rmMember(lineTokens);\r\n            case \"P\", \"PC\", \"PN\", \"PD\" -> {\r\n                if (DB.isEmpty()) {\r\n                    System.out.println(\"Member database is empty!\");\r\n                    return false;\r\n                }\r\n                switch (command) {\r\n                    case \"P\" -> {\r\n                        System.out.println(\"\\n-list of members-\");\r\n                        DB.print();\r\n                    } case \"PC\" -> {\r\n                        System.out.println(\"\\n-list of members sorted by county and zipcode-\");\r\n                        DB.printByCounty();\r\n                    } case \"PN\" -> {\r\n                        System.out.println(\"\\n-list of members sorted by last name, and first name-\");\r\n                        DB.printByName();\r\n                    } case \"PD\" -> {\r\n                        System.out.println(\"\\n-list of members sorted by membership expiration date-\");\r\n                        DB.printByExpirationDate();\r\n                    }\r\n                }\r\n                System.out.println(\"-end of list-\\n\");\r\n            }\r\n            case \"S\" -> {\r\n                System.out.println(\"\\n-Fitness classes-\");\r\n                for (FitnessClass aClass : classes) aClass.print();\r\n                System.out.println();\r\n            }\r\n            case \"C\" -> checkInMember(lineTokens);\r\n            case \"D\" -> dropClass(lineTokens);\r\n            default -> System.out.println(command + \" is an invalid command!\");\r\n        }\r\n        return false;\r\n    }\r\n\r\n    /**\r\n     * Helper method to perform isValid(), over18(), and futureDateCheck() checks on a Date\r\n     * @param dob a Date object to check against all validity conditions\r\n     * @return true if DOB passes all checks, false otherwise\r\n     */\r\n    private boolean dobCheck(Date dob){\r\n        if (!dob.isValid()) { //returns false if general errors in date.\r\n            System.out.println(\"DOB \" + dob.toString() + \": invalid calendar date!\");\r\n            return false;\r\n        }\r\n        if (!dob.over18()) { //returns true if 18 or older\r\n            System.out.println(\"DOB \" + dob.toString() + \": must be 18 or older to join!\");\r\n            return false;\r\n        }\r\n        if (dob.futureDateCheck()) { //return true if this.date > current date\r\n            System.out.println(\"DOB \" + dob.toString() + \": cannot be today or a future date!\");\r\n            return false;\r\n        }\r\n        return true;\r\n    }\r\n\r\n    /**\r\n     * Helper method to execute the \"A\" command and add a member to the MemberDatabase DB.\r\n     * Reads member information from a StringTokenizer of the command line.\r\n     * Uses helper methods from the Date class to check Date parameters' validity\r\n     * rejects if:\r\n     *     Any date is not a valid calendar date\r\n     *     The date of birth is today or a future date\r\n     *     Member is less than 18 years old\r\n     *     City name is invalid, that is, the gym location doesn’t exist\r\n     *\r\n     * Prints result of command execution to terminal.\r\n     * @param dataTokens StringTokenizer object of the necessary information to process given by the command line.\r\n     */\r\n    private void addMember(StringTokenizer dataTokens) {\r\n        String fname = dataTokens.nextToken();\r\n        String lname = dataTokens.nextToken();\r\n        Date dob = new Date(dataTokens.nextToken());\r\n        if(!dobCheck(dob))\r\n            return;\r\n\r\n        Date expire = new Date(dataTokens.nextToken());\r\n        if (!expire.isValid()) { //returns false if general errors in date.\r\n            System.out.println(\"Expiration date \" + expire.toString() + \": invalid calendar date!\");\r\n            return;\r\n        }\r\n        String locParam = dataTokens.nextToken();\r\n        Member.Location location = Member.Location.parseLocation(locParam);\r\n        if (location == null) {\r\n            System.out.println(locParam + \": invalid location!\");\r\n            return;\r\n        }\r\n        Member newMem = new Member(fname, lname, dob, expire, location);\r\n        if (!DB.add(newMem)) {\r\n            System.out.println(fname + \" \" + lname + \" is already in the database.\");\r\n        } else {\r\n            System.out.println(fname + \" \" + lname + \" added.\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Helper method to execute the \"R\" command and cancel/remove a member from the MemberDatabase DB.\r\n     * Reads member information from a StringTokenizer of the command line.\r\n     * Prints result of command execution to terminal.\r\n     * @param dataTokens StringTokenizer object of the necessary information to process given by the command line.\r\n     */\r\n    private void rmMember(StringTokenizer dataTokens) {\r\n        String fname = dataTokens.nextToken();\r\n        String lname = dataTokens.nextToken();\r\n        Date dob = new Date(dataTokens.nextToken());\r\n        Member rmMem = new Member(fname, lname, dob, null, null);\r\n        if (!DB.remove(rmMem)) {\r\n            System.out.println(fname + \" \" + lname + \" is not in the database.\");\r\n        } else {\r\n            System.out.println(fname + \" \" + lname + \" removed.\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Helper method to execute the \"C\" command and add a member to a class schedule.\r\n     * Reads member information from a StringTokenizer of the command line.\r\n     * rejects if:\r\n     *      the membership has expired (by checking if expiration is a future date)\r\n     *      the member does not exist (by checking if the member is in the database)\r\n     *      the date of birth is invalid (using the isValid() method of Date class)\r\n     *      the fitness class does not exist\r\n     *      there is a time conflict with other fitness classes (by checking if they are a member of a class at the same time)\r\n     *      the member has already checked in (by checking if they are already a member of the chosen class)\r\n     *\r\n     * Prints result of command execution to terminal.\r\n     * @param dataTokens StringTokenizer object of the necessary information to process given by the command line.\r\n     */\r\n    private void checkInMember(StringTokenizer dataTokens) {\r\n        String classStr = dataTokens.nextToken();\r\n        String fname = dataTokens.nextToken();\r\n        String lname = dataTokens.nextToken();\r\n        Date dob = new Date(dataTokens.nextToken()); //check if dob is valid\r\n        if(!dobCheck(dob))\r\n            return;\r\n\r\n        Member testMember = new Member(fname, lname, dob); //use given info to search for member in DB\r\n        Member dbMember = DB.getMember(testMember); //get the reference to the member in the DB, if it matches\r\n        if (dbMember == null) {\r\n            System.out.println(fname + \" \" + lname + \" \" + dob.toString() + \" is not in the database.\");\r\n            return;\r\n        }\r\n        Date expire = dbMember.getExpire();\r\n        if (!expire.futureDateCheck()) {\r\n            System.out.println(fname + \" \" + lname + \" \" + dob.toString() + \" membership expired.\");\r\n            return;\r\n        }\r\n\r\n        FitnessClass choiceClass = null;\r\n        for (FitnessClass aClass : classes) { //finds the chosen class and checks if already a member\r\n            if (aClass.getClassName().equalsIgnoreCase(classStr)) {\r\n                if (aClass.getMember(dbMember) != null) {\r\n                    System.out.println(fname + \" \" + lname + \" has already checked in \" + aClass.getClassName() + \".\");\r\n                    return;\r\n                } else {\r\n                    choiceClass = aClass;\r\n                    break;\r\n                }\r\n            }\r\n        }\r\n        if (choiceClass == null) { //checks if class exists\r\n            System.out.println(classStr + \" class does not exist.\");\r\n            return;\r\n        }\r\n        for (FitnessClass aClass : classes) { //checks for time conflict\r\n            if (aClass != choiceClass) {\r\n                if (aClass.getMember(dbMember) != null && aClass.getTime().equals(choiceClass.getTime())) {\r\n                    System.out.println(choiceClass.getClassName() + \" time conflict -- \" +\r\n                            fname + \" \" + lname + \" has already checked in \" + aClass.getClassName() + \".\");\r\n                    return;\r\n                }\r\n            }\r\n        }\r\n        choiceClass.add(dbMember); //having passed all the above checks, adds the member to the chosen class\r\n        System.out.println(fname + \" \" + lname + \" checked in \" + choiceClass.getClassName() + \".\");\r\n    }\r\n\r\n    /**\r\n     * Helper method to execute the \"D\" command and remove a member from a class schedule.\r\n     * Reads member information from a StringTokenizer of the command line.\r\n     * rejects if:\r\n     *      the member is not checked in (by against checking the database of members signed up for the class)\r\n     *      the date of birth is invalid (using helper methods from the Date class)\r\n     *      the fitness class does not exist (checking against the list of available classes)\r\n     *\r\n     * Prints result of command execution to terminal.\r\n     * @param dataTokens StringTokenizer object of the necessary information to process given by the command line.\r\n     */\r\n    private void dropClass(StringTokenizer dataTokens) {\r\n        String classStr = dataTokens.nextToken();\r\n\r\n        String fname = dataTokens.nextToken();\r\n        String lname = dataTokens.nextToken();\r\n\r\n        Date dob = new Date(dataTokens.nextToken()); //check if dob is valid\r\n        if(!dobCheck(dob))\r\n            return;\r\n\r\n        Member classMember = new Member(fname, lname, dob); //use given info to search for member in class\r\n\r\n        for (FitnessClass aClass : classes) { //finds the chosen class and checks if already a member\r\n            if (aClass.getClassName().equalsIgnoreCase(classStr)) {\r\n                if (!aClass.remove(classMember)) {\r\n                    System.out.println(fname + \" \" + lname + \" is not a participant in \" + classStr + \".\");\r\n                } else {\r\n                    System.out.println(fname + \" \" + lname + \" dropped \" + classStr + \".\");\r\n                }\r\n                return;\r\n            }\r\n        }\r\n        //if we get here, then the chosen class did not exist.\r\n        System.out.println(classStr + \" class does not exist.\");\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/gymmanagement/GymManager.java b/src/gymmanagement/GymManager.java
+--- a/src/gymmanagement/GymManager.java	(revision 3b644ec5cb5416b5fc6b0aeda68d3b2000efdb93)
++++ b/src/gymmanagement/GymManager.java	(date 1665798877178)
+@@ -8,7 +8,9 @@
+  */
+ package gymmanagement;
+ 
++import java.io.FileNotFoundException;
+ import java.util.Scanner;
++import java.io.File;
+ import java.util.StringTokenizer;
+ 
+ /**
+@@ -16,7 +18,7 @@
+  */
+ public class GymManager {
+     private MemberDatabase DB;
+-    private FitnessClass[] classes;
++    private ClassSchedule classes;
+ 
+     /**
+      * Uses a while loop to continuously read command lines from standard input and manage the member and class databases using helper methods.
+@@ -24,7 +26,7 @@
+     public void run() {
+         System.out.println("Gym Manager running...");
+         DB = new MemberDatabase();
+-        classes = new FitnessClass[]{new FitnessClass("Pilates"), new FitnessClass("Spinning"), new FitnessClass("Cardio")};
++        classes = new ClassSchedule();
+ 
+         Scanner sc = new Scanner(System.in);
+         String currentLine = sc.nextLine();
+@@ -83,6 +85,7 @@
+             }
+             case "C" -> checkInMember(lineTokens);
+             case "D" -> dropClass(lineTokens);
++            case "LS" -> loadSchedule();
+             default -> System.out.println(command + " is an invalid command!");
+         }
+         return false;
+@@ -265,4 +268,28 @@
+         //if we get here, then the chosen class did not exist.
+         System.out.println(classStr + " class does not exist.");
+     }
++
++    private void loadSchedule() throws FileNotFoundException {
++        Scanner file = new Scanner(new File("classSchedule.txt"));
++
++        while(file.hasNext()){
++            StringTokenizer lineTokens = new StringTokenizer(file.nextLine());
++
++            String className = lineTokens.nextToken();
++            String instructor = lineTokens.nextToken();
++            String classTime = lineTokens.nextToken();
++            String location = lineTokens.nextToken();
++            //check validity of entries?
++
++            FitnessClass newClass = new FitnessClass(className, instructor, classTime, location);
++            classes.add(newClass);
++
++            //FitnessClass newClass = new FitnessClass();
++            //set params
++            //add class to classes db
++
++
++        }
++
++    }
+ }
+Index: src/gymmanagement/FitnessClass.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package gymmanagement;\r\nimport java.util.ArrayList;\r\n//can load a list of fitnessClasses\r\n//add instance variable for list of classes\r\n//The ArrayList holds members I assume\r\n\r\n/**\r\nYou must include this Java class, which define a fitness class the members can check in. You can define the\r\ninstance variables and methods needed. You must use the enum class Time in this class or lose 2 points.\r\nYour software shall not allow a member to check in if\r\no the membership has expired //just have to use the futureDateCheck() method\r\no the member does not exist //just the find method\r\no the date of birth is invalid //just the isvalid method\r\no the fitness class does not exist //idk just has to match spelling\r\no there is a time conflict with other fitness classes // find method in other two fitness classes?\r\no the member has already checked in // just the find method in the fitness class\r\n\r\nYour software shall not allow the member to drop the class if the member is not checked in, or the date of birth is\r\ninvalid, or the fitness class does not exist.\r\n\r\nS command, display the fitness class schedule. A fitness class shall include the fitness class name, instructor’s\r\nname, the time of the class, and the list of members who have already checked in today. For simplicity, assuming\r\nthe schedule is for “today” only, you do not need to handle a multiple-day schedule.\r\n */\r\n\r\npublic class FitnessClass extends MemberDatabase{\r\n    private Time time;\r\n    private Instructor instructor;\r\n    private String className;\r\n    private ArrayList<Member> members; // i think this is correct\r\n    private ArrayList<Member> guests; // separate array for guests?\r\n\r\n    /**\r\n    define the time of a fitness class in hh:mm\r\n    Defines the time variable for FitnessClass\r\n     */\r\n    public enum Time{\r\n        PILATES(9 ,30), //MORNING 9:30\r\n        SPINNING(14 , 0), //AFTERNOON 14:00\r\n        CARDIO(14 , 0); //EVENING 18:30\r\n\r\n        private final int hour;\r\n        private final int minutes;\r\n\r\n        Time(int hour, int minutes) {\r\n            this.hour = hour;\r\n            this.minutes = minutes;\r\n        }\r\n        /**\r\n        returns the time in String format\r\n         @returns the time of the instance in String format\r\n         */\r\n        @Override\r\n        public String toString(){\r\n            return String.format(\"%d:%02d\", this.hour, this.minutes);\r\n        }\r\n\r\n        /**\r\n        Compares and sees if two fitnessClass times are the same\r\n         @Param a time to see if equal to this time\r\n         @returns a boolean, true if equal, false otherwise\r\n         */\r\n        public boolean equals(Time otherTime){\r\n            return (this.hour == otherTime.hour && this.minutes == otherTime.minutes);\r\n        }\r\n    }\r\n\r\n    /**\r\n    constants for instructors, instructor names\r\n     */\r\n    public enum Instructor{\r\n        JENNIFER,\r\n        DENISE,\r\n        KIM,\r\n        DAVIS,\r\n        EMMA\r\n    }\r\n\r\n    /**\r\n    one argument constructor, given the fitnessClass as a strin calls the Superclass\r\n     which is MemberDatabase\r\n     @Param A String which should be one of the fitness Classes, Pilates, Cardio, or Spinning\r\n     */\r\n    public FitnessClass(String fitnessClass) {\r\n        super();\r\n        this.className = fitnessClass;\r\n        this.instructor = setInstructor(fitnessClass);\r\n        this.time = setTime(fitnessClass);\r\n    }\r\n\r\n    /**\r\n    sets the instructor datafield according to the fitnessClass parameter\r\n     @Param A String which should be one of the fitness Classes, Pilates, Cardio, or Spinning\r\n     @returns the instructor of the given fitnessClass\r\n     */\r\n    public Instructor setInstructor(String fitnessClass){\r\n        String fitnessClassLowerCase = fitnessClass.toLowerCase();\r\n        switch(fitnessClassLowerCase){\r\n            case \"pilates\":\r\n                return Instructor.JENNIFER;\r\n            case \"cardio\":\r\n                return Instructor.KIM;\r\n            case \"spinning\":\r\n                return Instructor.DENISE;\r\n            default:\r\n                return null; //just to detect and raise an error\r\n        }\r\n    }\r\n\r\n\r\n    /**\r\n    Sets the time data field according to the FitnessClass String given, If it matches with\r\n     one of the FitnessClasses\r\n     @Param A String which should be one of the fitness Classes, Pilates, Cardio, or Spinning\r\n     @return the time of the class\r\n     */\r\n    public Time setTime(String fitnessClass){\r\n        String fitnessClassLowerCase = fitnessClass.toLowerCase();\r\n        switch(fitnessClassLowerCase){\r\n            case \"pilates\":\r\n                return Time.PILATES;\r\n            case \"cardio\":\r\n                return Time.CARDIO;\r\n            case \"spinning\":\r\n                return Time.SPINNING;\r\n            default:\r\n                return null; //just to detect and raise an error\r\n        }\r\n    }\r\n\r\n\r\n    public String getClassName() {\r\n        return this.className;\r\n    }\r\n\r\n\r\n    public Time getTime() {\r\n        return this.time;\r\n    }\r\n\r\n\r\n\r\n    /**\r\n    Prints the fitnessClass data in the below format:\r\n\r\n    Pilates - JENNIFER 9:30\r\n        ** participants **\r\n            Jane Doe, DOB: 5/1/1996, Membership expires 3/30/2023, Location: EDISON, 08837, MIDDLESEX\r\n     */\r\n    @Override\r\n    public void print() {\r\n        System.out.println(this.className + \" - \" + this.instructor + \" \" + this.time);\r\n        if(!isEmpty()) {\r\n            System.out.println(\"\\t** participants **\");\r\n            super.print();\r\n        }\r\n    }\r\n\r\n    /**\r\n     Remove method for FitnessClass, Same as Member Database\r\n     @Param the member reference we want to search for and remove from this instance's mlist\r\n     @return true if the member is removed, false otherwise\r\n     */\r\n    @Override\r\n    public boolean remove(Member member) {\r\n        return super.remove(member);\r\n    }\r\n\r\n    /**\r\n     Add method for FitnessClass, Same as MemberDatabase\r\n     @Param the member we want to add to the mlist\r\n     @return true if the member is added, false otherwise\r\n     */\r\n    @Override\r\n    public boolean add(Member member) {\r\n        return super.add(member);\r\n    }\r\n\r\n    /**\r\n    returns the member reference from the mlist\r\n     @Param the member we want the full member reference\r\n     @return the member reference that is in the mlist for the instance\r\n     */\r\n    @Override\r\n    public Member getMember(Member member) {\r\n        return super.getMember(member);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/gymmanagement/FitnessClass.java b/src/gymmanagement/FitnessClass.java
+--- a/src/gymmanagement/FitnessClass.java	(revision 3b644ec5cb5416b5fc6b0aeda68d3b2000efdb93)
++++ b/src/gymmanagement/FitnessClass.java	(date 1665609605552)
+@@ -60,7 +60,7 @@
+          @Param a time to see if equal to this time
+          @returns a boolean, true if equal, false otherwise
+          */
+-        public boolean equals(Time otherTime){
++        public boolean equals(Time otherTime){ //TODO: make a more complex .equals which also matches name and instructor
+             return (this.hour == otherTime.hour && this.minutes == otherTime.minutes);
+         }
+     }
+@@ -158,7 +158,7 @@
+ 
+     /**
+      Remove method for FitnessClass, Same as Member Database
+-     @Param the member reference we want to search for and remove from this instance's mlist
++     @Param the member reference we want to search for and remove from this instance's classes
+      @return true if the member is removed, false otherwise
+      */
+     @Override
+@@ -168,7 +168,7 @@
+ 
+     /**
+      Add method for FitnessClass, Same as MemberDatabase
+-     @Param the member we want to add to the mlist
++     @Param the member we want to add to the classes
+      @return true if the member is added, false otherwise
+      */
+     @Override
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"09abd9bb-3a90-4a59-bff7-5edb0754cdae\" name=\"Changes\" comment=\"Some minor changes\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/gymmanagement/FitnessClass.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/gymmanagement/FitnessClass.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/gymmanagement/Premium.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/gymmanagement/Premium.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2FxGJtaShNpz45J9prBBBB9hOi5\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"settings.editor.selected.configurable\": \"project.propVCSSupport.DirectoryMappings\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"09abd9bb-3a90-4a59-bff7-5edb0754cdae\" name=\"Changes\" comment=\"\" />\r\n      <created>1665426256019</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1665426256019</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"test\">\r\n      <created>1665426470613</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1665426470614</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"test\">\r\n      <created>1665426591734</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1665426591735</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"test\">\r\n      <created>1665426671924</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1665426671924</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"test\">\r\n      <created>1665426730315</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1665426730315</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"test\">\r\n      <created>1665429141572</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1665429141572</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"Some minor changes\">\r\n      <created>1665521666955</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1665521666955</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"CUSTOM_BOOLEAN_PROPERTIES\">\r\n                <map>\r\n                  <entry key=\"Show.Git.Branches\" value=\"true\" />\r\n                </map>\r\n              </option>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"origin/master\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <ignored-roots>\r\n      <path value=\"$PROJECT_DIR$\" />\r\n    </ignored-roots>\r\n    <MESSAGE value=\"test\" />\r\n    <MESSAGE value=\"Some minor changes\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Some minor changes\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 3b644ec5cb5416b5fc6b0aeda68d3b2000efdb93)
++++ b/.idea/workspace.xml	(date 1665609319309)
+@@ -8,7 +8,7 @@
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/Premium.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Premium.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -34,14 +34,14 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
