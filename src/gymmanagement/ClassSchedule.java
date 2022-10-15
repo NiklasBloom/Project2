@@ -12,4 +12,5 @@ package gymmanagement;
 public class ClassSchedule {
     private FitnessClass [] classes;
     private int numClasses;
+
 }

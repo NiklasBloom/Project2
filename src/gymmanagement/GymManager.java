@@ -24,8 +24,8 @@ public class GymManager {
     public void run() {
         System.out.println("Gym Manager running...");
         DB = new MemberDatabase();
-        classes = new FitnessClass[]{new FitnessClass("Pilates"), new FitnessClass("Spinning"), new FitnessClass("Cardio")};
-
+        //classes = new FitnessClass[]{new FitnessClass("Morning"), new FitnessClass("Spinning"), new FitnessClass("Cardio")};
+        //commented this out
         Scanner sc = new Scanner(System.in);
         String currentLine = sc.nextLine();
 
