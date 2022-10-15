@@ -10,7 +10,7 @@ public class Date implements Comparable<Date> {
 
     public static final int QUADRENNIAL = 4;
     public static final int CENTENNIAL = 100;
-    public static final int QUATERCENTENNIAL = 400;
+    public static final int QUARTERCENTENNIAL = 400;
 
 
     /**
@@ -29,12 +29,6 @@ public class Date implements Comparable<Date> {
      * @param date which is a date in String format and it is converted to a Date object
      */
     public Date(String date) { //take “mm/dd/yyyy” and create a Date object
-        if (date.equals(null)) {
-            this.month = 0;
-            this.day = 0;
-            this.year = 0;
-            return;
-        }
         if (!date.contains("/")) {//if it does not contain /, then set to zero
             this.month = 0;
             this.day = 0;
@@ -83,9 +77,7 @@ public class Date implements Comparable<Date> {
         int year = getDateYear(date); //used a static getter method
         if(year % QUADRENNIAL == 0){
             if(year % CENTENNIAL == 0){
-                if(year % QUATERCENTENNIAL == 0){
-                    return true;
-                }
+                return year % QUARTERCENTENNIAL == 0;
             }
         }
         return false;
@@ -99,8 +91,7 @@ public class Date implements Comparable<Date> {
     public static int getDateYear(String date){
         String[] tokens=date.split("/");
         String year = tokens[2];
-        int intYear= Integer.parseInt(year);
-        return intYear;
+        return Integer.parseInt(year);
     }
 
 
@@ -112,8 +103,7 @@ public class Date implements Comparable<Date> {
     public static int getDateMonth(String date){
         String[] tokens=date.split("/");
         String year = tokens[0];
-        int intMonth= Integer.parseInt(year);
-        return intMonth;
+        return Integer.parseInt(year);
     }
 
     /**
@@ -124,8 +114,7 @@ public class Date implements Comparable<Date> {
     public static int getDateDay(String date){
         String[] tokens=date.split("/");
         String year = tokens[1];
-        int intDay= Integer.parseInt(year);
-        return intDay;
+        return Integer.parseInt(year);
     }
 
     /**

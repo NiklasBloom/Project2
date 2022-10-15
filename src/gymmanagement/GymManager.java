@@ -8,6 +8,9 @@
  */
 package gymmanagement;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -16,7 +19,7 @@ import java.util.StringTokenizer;
  */
 public class GymManager {
     private MemberDatabase DB;
-    private FitnessClass[] classes;
+    private ClassSchedule classes;
 
     /**
      * Uses a while loop to continuously read command lines from standard input and manage the member and class databases using helper methods.
@@ -24,8 +27,8 @@ public class GymManager {
     public void run() {
         System.out.println("Gym Manager running...");
         DB = new MemberDatabase();
-        //classes = new FitnessClass[]{new FitnessClass("Morning"), new FitnessClass("Spinning"), new FitnessClass("Cardio")};
-        //commented this out
+        classes = new ClassSchedule();
+
         Scanner sc = new Scanner(System.in);
         String currentLine = sc.nextLine();
 
@@ -52,7 +55,9 @@ public class GymManager {
         String command = lineTokens.nextToken();
         switch (command) {
             case "Q" -> { return true; }
-            case "A" -> addMember(lineTokens);
+            case "A" -> addMember(lineTokens, "Member");
+            case "AF" -> addMember(lineTokens, "Family");
+            case "AP" -> addMember(lineTokens, "Premium");
             case "R" -> rmMember(lineTokens);
             case "P", "PC", "PN", "PD" -> {
                 if (DB.isEmpty()) {
@@ -76,13 +81,11 @@ public class GymManager {
                 }
                 System.out.println("-end of list-\n");
             }
-            case "S" -> {
-                System.out.println("\n-Fitness classes-");
-                for (FitnessClass aClass : classes) aClass.print();
-                System.out.println();
-            }
+            case "S" -> classes.print();
             case "C" -> checkInMember(lineTokens);
             case "D" -> dropClass(lineTokens);
+            case "LS" -> addClasses();
+            case "LM" -> loadMembers();
             default -> System.out.println(command + " is an invalid command!");
         }
         return false;
@@ -122,30 +125,53 @@ public class GymManager {
      * Prints result of command execution to terminal.
      * @param dataTokens StringTokenizer object of the necessary information to process given by the command line.
      */
-    private void addMember(StringTokenizer dataTokens) {
+    private void addMember(StringTokenizer dataTokens, String type) {
         String fname = dataTokens.nextToken();
         String lname = dataTokens.nextToken();
         Date dob = new Date(dataTokens.nextToken());
         if(!dobCheck(dob))
             return;
 
-        Date expire = new Date(dataTokens.nextToken());
-        if (!expire.isValid()) { //returns false if general errors in date.
-            System.out.println("Expiration date " + expire.toString() + ": invalid calendar date!");
-            return;
-        }
+        Calendar exp = Calendar.getInstance();
+        exp.add(Calendar.MONTH, 3);
+        Date expire = new Date(String.valueOf(exp.get(Calendar.MONTH)) + "/" + String.valueOf(exp.get(Calendar.DATE))
+                                + "/" + String.valueOf(exp.get(Calendar.YEAR)));
+
         String locParam = dataTokens.nextToken();
         Member.Location location = Member.Location.parseLocation(locParam);
         if (location == null) {
             System.out.println(locParam + ": invalid location!");
             return;
         }
-        Member newMem = new Member(fname, lname, dob, expire, location);
-        if (!DB.add(newMem)) {
-            System.out.println(fname + " " + lname + " is already in the database.");
-        } else {
-            System.out.println(fname + " " + lname + " added.");
+
+        switch(type){
+            case("Member") -> {
+                Member newMem = new Member(fname, lname, dob, expire, location);
+                if (!DB.add(newMem)) {
+                    System.out.println(fname + " " + lname + " is already in the database.");
+                } else {
+                    System.out.println(fname + " " + lname + " added.");
+                }
+            }
+            case("Family") -> {
+                Family newMem = new Family(fname, lname, dob, expire, location);
+                if (!DB.add(newMem)) {
+                    System.out.println(fname + " " + lname + " is already in the database.");
+                } else {
+                    System.out.println(fname + " " + lname + " added.");
+                }
+            }
+            case("Premium") -> {
+                Premium newMem = new Premium(fname, lname, dob, expire, location);
+                if (!DB.add(newMem)) {
+                    System.out.println(fname + " " + lname + " is already in the database.");
+                } else {
+                    System.out.println(fname + " " + lname + " added.");
+                }
+            }
         }
+
+
     }
 
     /**
@@ -181,7 +207,9 @@ public class GymManager {
      * @param dataTokens StringTokenizer object of the necessary information to process given by the command line.
      */
     private void checkInMember(StringTokenizer dataTokens) {
-        String classStr = dataTokens.nextToken();
+        String className = dataTokens.nextToken();
+        String instructor = dataTokens.nextToken();
+        String location = dataTokens.nextToken();
         String fname = dataTokens.nextToken();
         String lname = dataTokens.nextToken();
         Date dob = new Date(dataTokens.nextToken()); //check if dob is valid
@@ -200,25 +228,23 @@ public class GymManager {
             return;
         }
 
-        FitnessClass choiceClass = null;
-        for (FitnessClass aClass : classes) { //finds the chosen class and checks if already a member
-            if (aClass.getClassName().equalsIgnoreCase(classStr)) {
-                if (aClass.getMember(dbMember) != null) {
-                    System.out.println(fname + " " + lname + " has already checked in " + aClass.getClassName() + ".");
-                    return;
-                } else {
-                    choiceClass = aClass;
-                    break;
-                }
-            }
-        }
+        FitnessClass choiceClass = classes.getFitnessClass(new FitnessClass(className, instructor, null, location));
         if (choiceClass == null) { //checks if class exists
-            System.out.println(classStr + " class does not exist.");
+            System.out.println(className + "  - class does not exist.");
             return;
         }
-        for (FitnessClass aClass : classes) { //checks for time conflict
-            if (aClass != choiceClass) {
-                if (aClass.getMember(dbMember) != null && aClass.getTime().equals(choiceClass.getTime())) {
+        if (choiceClass.getMember(dbMember) != null) { //check if member is already in the class
+            System.out.println(fname + " " + lname + " has already checked in " + choiceClass.getClassName() + ".");
+            return;
+        }
+
+        //get list of all conflicting classes
+        FitnessClass[] conflicts = classes.conflicts(choiceClass);
+
+        //check if member is in those classes
+        for (FitnessClass aClass : conflicts) {
+            if (aClass != null) {
+                if (aClass != choiceClass) {
                     System.out.println(choiceClass.getClassName() + " time conflict -- " +
                             fname + " " + lname + " has already checked in " + aClass.getClassName() + ".");
                     return;
@@ -241,7 +267,9 @@ public class GymManager {
      * @param dataTokens StringTokenizer object of the necessary information to process given by the command line.
      */
     private void dropClass(StringTokenizer dataTokens) {
-        String classStr = dataTokens.nextToken();
+        String className = dataTokens.nextToken();
+        String instructor = dataTokens.nextToken();
+        String location = dataTokens.nextToken();
 
         String fname = dataTokens.nextToken();
         String lname = dataTokens.nextToken();
@@ -252,17 +280,81 @@ public class GymManager {
 
         Member classMember = new Member(fname, lname, dob); //use given info to search for member in class
 
-        for (FitnessClass aClass : classes) { //finds the chosen class and checks if already a member
-            if (aClass.getClassName().equalsIgnoreCase(classStr)) {
-                if (!aClass.remove(classMember)) {
-                    System.out.println(fname + " " + lname + " is not a participant in " + classStr + ".");
-                } else {
-                    System.out.println(fname + " " + lname + " dropped " + classStr + ".");
-                }
+        FitnessClass choiceClass = classes.getFitnessClass(new FitnessClass(className, instructor, null, location));
+        if (choiceClass == null) { //checks if class exists
+            System.out.println(className + "  - class does not exist.");
+            return;
+        }
+
+        if (!choiceClass.remove(classMember)) {
+            System.out.println(fname + " " + lname + " is not a participant in " + className + ".");
+        } else {
+            System.out.println(fname + " " + lname + " dropped " + className + ".");
+        }
+    }
+
+    private void addClasses() {
+        Scanner schedFile;
+        try {
+            schedFile = new Scanner(new File("src/classSchedule.txt"));
+        } catch (FileNotFoundException e) {
+            System.out.println("File classSchedule.txt not found!");
+            return;
+        }
+
+        System.out.println("\n-Fitness classes loaded-");
+        while (schedFile.hasNext()) {
+            StringTokenizer lineTokens = new StringTokenizer(schedFile.nextLine());
+
+            String className = lineTokens.nextToken();
+            String instructor = lineTokens.nextToken();
+            String time = lineTokens.nextToken();
+            String location = lineTokens.nextToken();
+
+            FitnessClass newClass = new FitnessClass(className, instructor, time, location);
+            classes.add(newClass);
+            newClass.print();
+        }
+        System.out.println("-end of class list.\n");
+    }
+
+    private void loadMembers() {
+        Scanner memFile;
+        try {
+            memFile = new Scanner(new File("src/memberList.txt"));
+        } catch (FileNotFoundException e) {
+            System.out.println("File memberList.txt not found!");
+            return;
+        }
+
+        System.out.println("\n-list of members loaded-");
+        while (memFile.hasNext()) {
+            StringTokenizer dataTokens = new StringTokenizer(memFile.nextLine());
+
+            String fname = dataTokens.nextToken();
+            String lname = dataTokens.nextToken();
+            Date dob = new Date(dataTokens.nextToken());
+            if(!dobCheck(dob))
+                return;
+
+            Date expire = new Date(dataTokens.nextToken());
+            if (!expire.isValid()) { //returns false if general errors in date.
+                System.out.println("Expiration date " + expire.toString() + ": invalid calendar date!");
                 return;
             }
+            String locParam = dataTokens.nextToken();
+            Member.Location location = Member.Location.parseLocation(locParam);
+            if (location == null) {
+                System.out.println(locParam + ": invalid location!");
+                return;
+            }
+            Member newMem = new Member(fname, lname, dob, expire, location);
+            if (!DB.add(newMem)) {
+                System.out.println(fname + " " + lname + " is already in the database.");
+            } else {
+                System.out.println(newMem);
+            }
         }
-        //if we get here, then the chosen class did not exist.
-        System.out.println(classStr + " class does not exist.");
+        System.out.println("-end of list-\n");
     }
 }

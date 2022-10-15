@@ -123,20 +123,14 @@ public class FitnessClass{
 
         public static Instructor returnInstructor(String instructorName){
             instructorName = instructorName.toLowerCase();
-            switch(instructorName){
-                case("jennifer"):
-                    return Instructor.JENNIFER;
-                case("denise"):
-                    return Instructor.DENISE;
-                case("kim"):
-                    return Instructor.KIM;
-                case("davis"):
-                    return Instructor.DAVIS;
-                case("emma"):
-                    return Instructor.EMMA;
-                default:
-                    return null;
-            }
+            return switch (instructorName) {
+                case ("jennifer") -> Instructor.JENNIFER;
+                case ("denise") -> Instructor.DENISE;
+                case ("kim") -> Instructor.KIM;
+                case ("davis") -> Instructor.DAVIS;
+                case ("emma") -> Instructor.EMMA;
+                default -> null;
+            };
         }
     }
 
@@ -176,7 +170,7 @@ public class FitnessClass{
      */
 
     public void print() {
-        System.out.println(this.className + " - " + this.instructor + " " + this.time);
+        System.out.println(this.className + " - " + this.instructor + ", " + this.time + ", " + this.location);
         /*if(!isEmpty()) {
         System.out.println("\t** participants **");
             //super.print();
@@ -239,6 +233,30 @@ public class FitnessClass{
 
 
         return null;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof FitnessClass) {
+            FitnessClass aClass = (FitnessClass) obj; //casting
+            return aClass.className.equalsIgnoreCase(this.className)
+                    && aClass.instructor.equals(this.instructor)
+                    && aClass.location.equals(this.location);
+        }
+        return false;
+    }
+
+    public boolean conflicts(FitnessClass fitnessClass){
+        if (fitnessClass == null) {
+            return false;
+        }
+        if(fitnessClass.time == null){
+            return false;
+        }
+        return this.time == fitnessClass.time;
     }
 
     /*

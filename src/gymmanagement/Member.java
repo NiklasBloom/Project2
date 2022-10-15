@@ -215,6 +215,13 @@ public class Member implements Comparable<Member>{
         return 0;
     }
 
+    /**
+     * @return the value of the next bill; family fee * 3 months + one-time fee
+     */
+    public double membershipFee() {
+        return 29.99 + 39.99 * 3.0;
+    }
+
 
 
     /**

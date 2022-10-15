@@ -1,6 +1,6 @@
 package gymmanagement;
 
-public class RunProject1 {
+public class RunProject2 {
     /*
     RunProject1 class is a driver class to run your Project 1. The main method will call the run() method in the
     GymManager class.
