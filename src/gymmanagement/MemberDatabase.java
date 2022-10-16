@@ -189,6 +189,19 @@ public class MemberDatabase {
         }
     }
 
+    public void printWithFees() {
+        if(isEmpty()) {
+            System.out.println("EMPTY");
+            return;
+        }
+        for(int i = 0; i < this.size; i++){
+            if(this.mlist[i] != null) {
+                System.out.println(this.mlist[i].toString()
+                        + ", Membership fee: " + String.valueOf(this.mlist[i].membershipFee()));
+            }
+        }
+    }
+
     /**
     PC command, to display the list of members in the database ordered by the county names and then the zip codes;
     that is, if the locations are in the same county, ordered by the zip codes.

@@ -103,7 +103,7 @@ public class Member implements Comparable<Member>{
         }
         if (obj instanceof Member) {
             Member student = (Member) obj; //casting
-            return student.fname.equalsIgnoreCase(this.fname.toLowerCase())
+            return student.fname.equalsIgnoreCase(this.fname)
                     && student.lname.equalsIgnoreCase(this.lname)
                     && student.dob.equals(this.dob);
         }
@@ -128,25 +128,13 @@ public class Member implements Comparable<Member>{
      @returns the string of the full location based off this members Location data field value
      */
     public String fullLocation() {
-        String s ="";
-        switch (location) {
-            case Edison:
-                s = ("EDISON, 08837, MIDDLESEX");
-                break;
-            case Piscataway:
-                s = ("PISCATAWAY, 08854, MIDDLESEX");
-                break;
-            case Bridgewater:
-                s = ("BRIDGEWATER, 08807, SOMERSET");
-                break;
-            case Franklin:
-                s = ("FRANKLIN, 08873, SOMERSET");
-                break;
-            case Somerville:
-                s = ("SOMERVILLE, 08876, SOMERSET");
-                break;
-        }
-        return s;
+        return switch (location) {
+            case Edison -> ("EDISON, 08837, MIDDLESEX");
+            case Piscataway -> ("PISCATAWAY, 08854, MIDDLESEX");
+            case Bridgewater -> ("BRIDGEWATER, 08807, SOMERSET");
+            case Franklin -> ("FRANKLIN, 08873, SOMERSET");
+            case Somerville -> ("SOMERVILLE, 08876, SOMERSET");
+        };
     }
     /**
     returns a numeric value for each county/zip code for sorting purposes

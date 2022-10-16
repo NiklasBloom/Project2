@@ -10,6 +10,7 @@ package gymmanagement;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -59,7 +60,7 @@ public class GymManager {
             case "AF" -> addMember(lineTokens, "Family");
             case "AP" -> addMember(lineTokens, "Premium");
             case "R" -> rmMember(lineTokens);
-            case "P", "PC", "PN", "PD" -> {
+            case "P", "PC", "PN", "PD", "PF" -> {
                 if (DB.isEmpty()) {
                     System.out.println("Member database is empty!");
                     return false;
@@ -77,6 +78,9 @@ public class GymManager {
                     } case "PD" -> {
                         System.out.println("\n-list of members sorted by membership expiration date-");
                         DB.printByExpirationDate();
+                    } case "PF" -> {
+                        System.out.println("\n-list of members with membership fees-");
+                        DB.printWithFees();
                     }
                 }
                 System.out.println("-end of list-\n");
@@ -126,15 +130,15 @@ public class GymManager {
      * @param dataTokens StringTokenizer object of the necessary information to process given by the command line.
      */
     private void addMember(StringTokenizer dataTokens, String type) {
-        String fname = dataTokens.nextToken();
-        String lname = dataTokens.nextToken();
+        String fname = new String(dataTokens.nextToken());
+        String lname = new String(dataTokens.nextToken());
         Date dob = new Date(dataTokens.nextToken());
         if(!dobCheck(dob))
             return;
 
         Calendar exp = Calendar.getInstance();
         exp.add(Calendar.MONTH, 3);
-        Date expire = new Date(String.valueOf(exp.get(Calendar.MONTH)) + "/" + String.valueOf(exp.get(Calendar.DATE))
+        Date expire = new Date(String.valueOf(exp.get(Calendar.MONTH) + 1) + "/" + String.valueOf(exp.get(Calendar.DATE))
                                 + "/" + String.valueOf(exp.get(Calendar.YEAR)));
 
         String locParam = dataTokens.nextToken();
@@ -267,7 +271,7 @@ public class GymManager {
      * @param dataTokens StringTokenizer object of the necessary information to process given by the command line.
      */
     private void dropClass(StringTokenizer dataTokens) {
-        String className = dataTokens.nextToken();
+        String className = new String(dataTokens.nextToken());
         String instructor = dataTokens.nextToken();
         String location = dataTokens.nextToken();
 
@@ -329,20 +333,21 @@ public class GymManager {
 
         System.out.println("\n-list of members loaded-");
         while (memFile.hasNext()) {
-            StringTokenizer dataTokens = new StringTokenizer(memFile.nextLine());
+            StringTokenizer dataTokens =
+                    new StringTokenizer(memFile.nextLine().replaceAll("\\p{C}", "")); //removes all invisible characters
 
-            String fname = dataTokens.nextToken();
-            String lname = dataTokens.nextToken();
-            Date dob = new Date(dataTokens.nextToken());
+            String fname = new String(dataTokens.nextToken());
+            String lname = new String(dataTokens.nextToken());
+            Date dob = new Date(new String(dataTokens.nextToken()));
             if(!dobCheck(dob))
                 return;
 
-            Date expire = new Date(dataTokens.nextToken());
+            Date expire = new Date(new String(dataTokens.nextToken()));
             if (!expire.isValid()) { //returns false if general errors in date.
                 System.out.println("Expiration date " + expire.toString() + ": invalid calendar date!");
                 return;
             }
-            String locParam = dataTokens.nextToken();
+            String locParam = new String(dataTokens.nextToken());
             Member.Location location = Member.Location.parseLocation(locParam);
             if (location == null) {
                 System.out.println(locParam + ": invalid location!");

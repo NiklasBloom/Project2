@@ -133,12 +133,7 @@ public class Date implements Comparable<Date> {
         }
         if (obj instanceof Date) {
             Date dat = (Date) obj; //casting
-            if (dat.day == this.day && dat.month == this.month && dat.year == this.year){
-                return true;
-            }
-            else {
-                return false;
-            }
+            return dat.day == this.day && dat.month == this.month && dat.year == this.year;
         }
         return false;
     }
