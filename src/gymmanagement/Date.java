@@ -239,14 +239,11 @@ public class Date implements Comparable<Date> {
         int CalendarYear = c.get(Calendar.YEAR);
         int CalendarDay = c.get(Calendar.DATE);
         int CalendarMonth = c.get(Calendar.MONTH);
-        if (this.year >= CalendarYear){ // checks if DOB is > than limit, meaning under 18
-            if(this.month >= CalendarMonth){
-                if(this.day > CalendarDay){
-                    return false;
-                }
-            }
-        }
-        return true;
+        if (this.year == CalendarYear){
+            if (this.month == CalendarMonth){
+                return this.day < CalendarDay;
+            } else return this.month < CalendarMonth;
+        } else return this.year < CalendarYear;
     }
 
     /**
@@ -262,16 +259,9 @@ public class Date implements Comparable<Date> {
         int CalendarMonth = c.get(Calendar.MONTH); //get the current date
         if (this.year == CalendarYear){
             if(this.month == CalendarMonth){
-                if(this.day > CalendarDay){
-                    return true;
-                }
-            } else if(this.month > CalendarMonth){
-                return true;
-            }
-        } else if (this.year > CalendarYear){
-            return true;
-        }
-        return false;
+                return this.day > CalendarDay;
+            } else return this.month > CalendarMonth;
+        } else return this.year > CalendarYear;
     }
 
     /**

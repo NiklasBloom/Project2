@@ -85,8 +85,8 @@ public class Member implements Comparable<Member>{
         return this.expire;
     }
 
-    public String getLocation(){
-        return this.location.toString();
+    public Location getLocation(){
+        return this.location;
     }
 
 

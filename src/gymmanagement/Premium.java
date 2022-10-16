@@ -1,16 +1,12 @@
 package gymmanagement;
 
 public class Premium extends Family {
-    private String fname;
-    private String lname;
-    private Date dob;
-    private Date expire;
-    private Location location;
     private int guestPasses;
 
     //TODO: override guestPasses field to have 3 available
     public Premium(String fname, String lname, Date dob, Date expire, Location location) {
         super(fname, lname, dob, expire, location);
+        this.guestPasses = 3;
     }
 
     /**
@@ -28,9 +24,6 @@ public class Premium extends Family {
     @Override
     public String toString() {
         //checks if membership is expired, and change wording from "expires" to "expired" accordingly
-        String s = this.fname + " " + this.lname + ", DOB: " + this.dob.toString()
-                + ((this.expire.futureDateCheck()) ? ", Membership expires " : ", Membership expired ")
-                + this.expire.toString() + ", Location: " + this.fullLocation() + " (Premium) guest-pass remaining: " + String.valueOf(this.guestPasses);
-        return s;
+        return (new Member(this.getFname(), this.getLname(), this.getDob(), this.getExpire(), this.getLocation())).toString() + ", (Premium) guest-pass remaining: " + String.valueOf(this.guestPasses);
     }
 }

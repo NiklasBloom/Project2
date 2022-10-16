@@ -1,16 +1,12 @@
 package gymmanagement;
 
 public class Family extends Member {
-    private String fname;
-    private String lname;
-    private Date dob;
-    private Date expire;
-    private Location location;
     private int guestPasses;
 
     //TODO: add guestPasses field to track number of passes left
     public Family(String fname, String lname, Date dob, Date expire, Location location) {
         super(fname, lname, dob, expire, location);
+        this.guestPasses = 1;
     }
 
     //TODO: membershipFee() should work the same as Member class, just return 59.99 instead
@@ -31,9 +27,6 @@ public class Family extends Member {
     @Override
     public String toString() {
         //checks if membership is expired, and change wording from "expires" to "expired" accordingly
-        String s = this.fname + " " + this.lname + ", DOB: " + this.dob.toString()
-                + ((this.expire.futureDateCheck()) ? ", Membership expires " : ", Membership expired ")
-                + this.expire.toString() + ", Location: " + this.fullLocation() + " (Family) guest-pass remaining: " + String.valueOf(this.guestPasses);
-        return s;
+        return super.toString() + ", (Family) guest-pass remaining: " + String.valueOf(this.guestPasses);
     }
 }
