@@ -28,7 +28,6 @@ public class FitnessClass{
     private Instructor instructor;
     private String className;
     private ArrayList<Member> membersList; // I think this is correct
-    private ArrayList<Member> guestsList; // separate array for guests?
     private Member.Location location;
 
 
@@ -121,6 +120,11 @@ public class FitnessClass{
         DAVIS,
         EMMA;
 
+        /**
+         * returns the instructor constant from the given instructor string
+         * @param instructorName
+         * @return
+         */
         public static Instructor returnInstructor(String instructorName){
             instructorName = instructorName.toLowerCase();
             return switch (instructorName) {
@@ -170,7 +174,7 @@ public class FitnessClass{
      */
 
     public void print() {
-        System.out.println(this.className + " - " + this.instructor + ", " + this.time + ", " + this.location);
+        System.out.println(this.className.toUpperCase() + " - " + this.instructor + ", " + this.time + ", " + this.location.returnCapitalized());
         /*if(!isEmpty()) {
         System.out.println("\t** participants **");
             //super.print();
@@ -178,13 +182,19 @@ public class FitnessClass{
     }
 
     /**
-     Remove method for FitnessClass, Same as Member Database
+     Remove method for FitnessClass, Same as Member Database, uses ArrayList package
      @param member the member reference we want to search for and remove from this instance's mlist
      @return true if the member is removed, false otherwise
      */
     public boolean remove(Member member) {
-
-
+        if(member == null){
+            return false;
+        }
+        int index = this.find(member);
+        if(index == -1){
+            return false; // member not in the array so we didnt remove
+        } //therefore index must now be index of the member reference in the array
+        this.membersList.remove(index);
         return true;
     }
 
@@ -195,13 +205,23 @@ public class FitnessClass{
      */
 
     public boolean add(Member member) {
-        if(this.find(member) >= 0){
+        if(member == null){
             return false;
         }
+        if(this.find(member) >= 0){ //already in the ArrayList
+            return false;
+        } //hence find(member) == -1 if we are here
+
         this.membersList.add(member);
         return true;
     }
 
+
+    /**
+     * Method used for finding if a member reference is in a FitnessClass, returns index or -1.
+     * @param member
+     * @return the index of the member if in the ArrayList, returns -1 if not in the arrayList
+     */
     private int find(Member member) {
         if(this.membersList.isEmpty()){//if true that list is empty
             return -1; //CONSTANTS ENUM CLASS
@@ -219,8 +239,9 @@ public class FitnessClass{
 
     /**
     returns the member reference from the mlist
+     Returns null if the member is not in the fitnessClass
      @param member the member we want the full member reference
-     @return the member reference that is in the mlist for the instance
+     @return the member reference that is in the mlist for the instance or null if not found
      */
 
     public Member getMember(Member member) {
@@ -230,7 +251,11 @@ public class FitnessClass{
         if(member == null){
             return null;
         }
-
+        int index = this.find(member); //gives the index of the given member if in the called FitnessClass
+        //now have the index of the member
+        if(index == -1){
+            return null; //member not in fitnessClass
+        }
 
         return null;
     }
@@ -244,11 +269,17 @@ public class FitnessClass{
             FitnessClass aClass = (FitnessClass) obj; //casting
             return aClass.className.equalsIgnoreCase(this.className)
                     && aClass.instructor.equals(this.instructor)
-                    && aClass.location.equals(this.location);
+                    && aClass.location.equals(this.location); //added time
         }
         return false;
     }
 
+
+    /**
+     * boolean helper method that checks if two fitnessClasses have the same time
+     * @param fitnessClass
+     * @return
+     */
     public boolean conflicts(FitnessClass fitnessClass){
         if (fitnessClass == null) {
             return false;
@@ -256,28 +287,6 @@ public class FitnessClass{
         if(fitnessClass.time == null){
             return false;
         }
-        return this.time == fitnessClass.time;
+        return this.time.equals(fitnessClass.time);
     }
-
-    /*
-    if(this.isEmpty()){
-            return null;
-        }
-        if(member == null){
-            return null;
-        } else if (member.getFname() == null || member.getLname() == null || member.getDob() == null){
-            return null;
-        }
-        for (int i = 0; i < size; i++){
-            if(this.mlist[i] != null) {
-                if(this.mlist[i].equals(member)) {
-                    return this.mlist[i];
-                }
-            }
-        }
-        return null;
-    }
-     */
-
-
 }

@@ -15,7 +15,7 @@ public class Family extends Member {
      */
     @Override
     public double membershipFee() {
-        return 29.99 + 59.99 * 3.0;
+        return 29.99 + (59.99 * 3.0);
     }
 
     //TODO: override toString() to indicate family and show number of passes

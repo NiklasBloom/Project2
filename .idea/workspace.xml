@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="Revert &quot;commit&quot;&#10;&#10;This reverts commit 2685835d">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/Date.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Date.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/Family.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Family.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gymmanagement/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/MemberDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/MemberDatabase.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

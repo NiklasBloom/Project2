@@ -36,7 +36,7 @@ public class ClassSchedule {
         if(fitnessClass == null){
             return null;
         }
-        for (FitnessClass aClass : this.classes) {
+        for (FitnessClass aClass : this.classes) { //for each
             if (aClass != null) {
                 if (aClass.equals(fitnessClass)) {
                     return aClass;
@@ -46,6 +46,11 @@ public class ClassSchedule {
         return null;
     }
 
+    /**
+     *
+     * @param fitnessClass
+     * @return
+     */
     public FitnessClass[] conflicts(FitnessClass fitnessClass){
         if(this.isEmpty()){
             return null;
@@ -57,6 +62,9 @@ public class ClassSchedule {
         for (int i = 0; i < this.classes.length; i++) {
             if (this.classes[i] != null) {
                 if (this.classes[i].conflicts(fitnessClass)) {
+                    //given a fitnessClass, if any in current classes has a time conflict with param,
+                    //then add this class to the conflict array
+                    //this will only work if the parameter fitnessClass is not yet in the array
                     conflicts[i] = this.classes[i];
                 }
             }

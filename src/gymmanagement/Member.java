@@ -36,6 +36,11 @@ public class Member implements Comparable<Member>{
                 default -> null;
             };
         }
+
+        public String returnCapitalized(){
+            String name = this.name().toUpperCase();
+            return name;
+        }
     }
 
     /**
@@ -169,6 +174,8 @@ public class Member implements Comparable<Member>{
 
 
 
+
+
     /**
      compareTo() method is used when sorting by names
      if s1 > s2, it returns 1
@@ -207,7 +214,7 @@ public class Member implements Comparable<Member>{
      * @return the value of the next bill; family fee * 3 months + one-time fee
      */
     public double membershipFee() {
-        return 29.99 + 39.99 * 3.0;
+        return 29.99 + (39.99 * 3.0);
     }
 
 

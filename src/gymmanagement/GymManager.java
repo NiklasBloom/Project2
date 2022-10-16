@@ -10,7 +10,7 @@ package gymmanagement;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.StandardCharsets; //are we allowed to import this package
 import java.util.Calendar;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  */
 public class GymManager {
     private MemberDatabase DB;
-    private ClassSchedule classes;
+    private ClassSchedule classes; //array of FitnessClasses, which are arrays of members
 
     /**
      * Uses a while loop to continuously read command lines from standard input and manage the member and class databases using helper methods.
@@ -135,20 +135,17 @@ public class GymManager {
         Date dob = new Date(dataTokens.nextToken());
         if(!dobCheck(dob))
             return;
-
         Calendar exp = Calendar.getInstance();
         exp.add(Calendar.MONTH, 3);
         Date expire = new Date(String.valueOf(exp.get(Calendar.MONTH) + 1) + "/" + String.valueOf(exp.get(Calendar.DATE))
                                 + "/" + String.valueOf(exp.get(Calendar.YEAR)));
-
         String locParam = dataTokens.nextToken();
         Member.Location location = Member.Location.parseLocation(locParam);
         if (location == null) {
             System.out.println(locParam + ": invalid location!");
             return;
         }
-
-        switch(type){
+        switch(type){ // make a helper method for this?
             case("Member") -> {
                 Member newMem = new Member(fname, lname, dob, expire, location);
                 if (!DB.add(newMem)) {
@@ -174,8 +171,6 @@ public class GymManager {
                 }
             }
         }
-
-
     }
 
     /**
@@ -219,7 +214,6 @@ public class GymManager {
         Date dob = new Date(dataTokens.nextToken()); //check if dob is valid
         if(!dobCheck(dob))
             return;
-
         Member testMember = new Member(fname, lname, dob); //use given info to search for member in DB
         Member dbMember = DB.getMember(testMember); //get the reference to the member in the DB, if it matches
         if (dbMember == null) {
@@ -230,8 +224,7 @@ public class GymManager {
         if (!expire.futureDateCheck()) {
             System.out.println(fname + " " + lname + " " + dob.toString() + " membership expired.");
             return;
-        }
-
+        } // Fot choiceClass, time is not given
         FitnessClass choiceClass = classes.getFitnessClass(new FitnessClass(className, instructor, null, location));
         if (choiceClass == null) { //checks if class exists
             System.out.println(className + "  - class does not exist.");
@@ -241,23 +234,35 @@ public class GymManager {
             System.out.println(fname + " " + lname + " has already checked in " + choiceClass.getClassName() + ".");
             return;
         }
-
         //get list of all conflicting classes
         FitnessClass[] conflicts = classes.conflicts(choiceClass);
-
         //check if member is in those classes
+        timeConflictCheck(conflicts, choiceClass,fname,lname); //new helper method
+        choiceClass.add(dbMember); //having passed all the above checks, adds the member to the chosen class
+        System.out.println(fname + " " + lname + " checked in " + choiceClass.getClassName() + ".");
+    }
+
+    /**
+     * helper method that iterates through fitnessClasses that have a time conflict,
+     * then goes through the conflicted classes, if they are different, and have same time,
+     * but it doesnt check if the member is in both right?
+     * @param conflicts
+     * @param choiceClass
+     * @param fname
+     * @param lname
+     */
+    public static void timeConflictCheck(FitnessClass[] conflicts,FitnessClass choiceClass, String fname,String lname){
         for (FitnessClass aClass : conflicts) {
             if (aClass != null) {
-                if (aClass != choiceClass) {
+                if (aClass != choiceClass) { // wouldnt we have to use .equals for fitness Class objs
                     System.out.println(choiceClass.getClassName() + " time conflict -- " +
                             fname + " " + lname + " has already checked in " + aClass.getClassName() + ".");
                     return;
                 }
             }
         }
-        choiceClass.add(dbMember); //having passed all the above checks, adds the member to the chosen class
-        System.out.println(fname + " " + lname + " checked in " + choiceClass.getClassName() + ".");
     }
+
 
     /**
      * Helper method to execute the "D" command and remove a member from a class schedule.
