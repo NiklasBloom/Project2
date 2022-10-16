@@ -149,7 +149,19 @@ public class FitnessClass{
         this.instructor = Instructor.returnInstructor(instructor); //this calls on method in Instructor Enum Class
         this.time = Time.returnTime(time);
         this.location = Member.Location.parseLocation(Location);
+        this.membersList = new ArrayList<Member>();
+    }
 
+    /**
+     * Constructor for when time isn't specified; still enough info to find a class in the schedule.
+     * @param fitnessClass
+     * @param instructor
+     * @param Location
+     */
+    public FitnessClass(String fitnessClass, String instructor, String Location) {
+        this.className = fitnessClass;
+        this.instructor = Instructor.returnInstructor(instructor); //this calls on method in Instructor Enum Class
+        this.location = Member.Location.parseLocation(Location);
     }
 
 
@@ -224,7 +236,7 @@ public class FitnessClass{
      */
     private int find(Member member) {
         if(this.membersList.isEmpty()){//if true that list is empty
-            return -1; //CONSTANTS ENUM CLASS
+            return -1; //TODO: CONSTANTS ENUM CLASS
         }
 
         for (int i = 0; i < this.membersList.size(); i++){
@@ -256,8 +268,7 @@ public class FitnessClass{
         if(index == -1){
             return null; //member not in fitnessClass
         }
-
-        return null;
+        return membersList.get(index);
     }
 
     @Override
@@ -272,21 +283,5 @@ public class FitnessClass{
                     && aClass.location.equals(this.location); //added time
         }
         return false;
-    }
-
-
-    /**
-     * boolean helper method that checks if two fitnessClasses have the same time
-     * @param fitnessClass
-     * @return
-     */
-    public boolean conflicts(FitnessClass fitnessClass){
-        if (fitnessClass == null) {
-            return false;
-        }
-        if(fitnessClass.time == null){
-            return false;
-        }
-        return this.time.equals(fitnessClass.time);
     }
 }
