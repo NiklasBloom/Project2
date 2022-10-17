@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="separate enum classes and now work normally should work">
+    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="more check in commands now work">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/ClassNames.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/ClassNames.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Location.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665980138743</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="more check in commands now work">
+      <created>1665986587511</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1665986587512</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -175,7 +182,8 @@
     <MESSAGE value="Some minor changes" />
     <MESSAGE value="some updates" />
     <MESSAGE value="separate enum classes and now work normally should work" />
-    <option name="LAST_COMMIT_MESSAGE" value="separate enum classes and now work normally should work" />
+    <MESSAGE value="more check in commands now work" />
+    <option name="LAST_COMMIT_MESSAGE" value="more check in commands now work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -188,16 +196,6 @@
           <url>file://$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java</url>
           <line>42</line>
           <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/gymmanagement/FitnessClass.java</url>
-          <line>197</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/gymmanagement/GymManager.java</url>
-          <line>231</line>
-          <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java</url>

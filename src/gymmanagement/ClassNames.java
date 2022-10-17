@@ -19,6 +19,12 @@ public enum ClassNames {
         };
     }
 
+    /**
+     * sometimes when reading from a txt file, at the beginning of the file, there is this weird thing,
+     * this method just checks if it is there and gets rid of it if it is there
+     * @param s
+     * @return
+     */
     public static String removeUTF8BOM(String s) {
         if (s.startsWith("\uFEFF")) {
             s = s.substring(1);
@@ -26,6 +32,10 @@ public enum ClassNames {
         return s;
     }
 
+    /**
+     * this method returns the className in uppercase form
+     * @return
+     */
     public String returnCapitalized(){
         if(this.name() == null){
             return null;
@@ -35,6 +45,11 @@ public enum ClassNames {
     }
 
 
+    /**
+     * a new equalsIgnoreCase that works for ClassNames, as comparing classNames does not work
+     * @param className
+     * @return
+     */
     public boolean equalsIgnoreCase(ClassNames className) {
         if(this.name().equalsIgnoreCase(className.name())){
             return true;

@@ -84,6 +84,10 @@ public class ClassSchedule {
         for (FitnessClass aClass : this.classes) {
             if (aClass != null) {
                 aClass.print();
+                if(!aClass.isEmpty()){
+                    aClass.printWholeFitnessClass();
+                }
+
             }
         }
         System.out.println("-end of class list\n");

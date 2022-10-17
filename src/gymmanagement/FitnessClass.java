@@ -28,6 +28,8 @@ public class FitnessClass {
     private gymmanagement.Instructor instructor;
     private gymmanagement.ClassNames className;
     private ArrayList<Member> membersList;
+
+    private ArrayList<Member> guestList;
     private gymmanagement.Location location;
 
 
@@ -44,6 +46,7 @@ public class FitnessClass {
         this.time = Time.returnTime(time);
         this.location = Location.parseLocation(location);
         this.membersList = new ArrayList<Member>();
+        this.guestList = new ArrayList<Member>();
     }
 
     /**
@@ -202,6 +205,23 @@ public class FitnessClass {
         return false;
     }
 
-}
+
+    public boolean isEmpty(){
+
+        if(this.membersList.size() == 0){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean contains(Member member){
+        if(this.membersList.contains(member)){
+            return true;
+        } else {
+            return false;
+        }
+
+
+    }}
 
 

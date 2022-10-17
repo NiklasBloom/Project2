@@ -89,6 +89,8 @@ public class GymManager {
             case "D" -> dropClass(lineTokens);
             case "LS" -> addClasses();
             case "LM" -> loadMembers();
+            case "CG" -> checkInGuest(lineTokens);
+            case "DG" -> loadMembers();
             default -> System.out.println(command + " is an invalid command!");
         }
         return false;
@@ -223,37 +225,64 @@ public class GymManager {
             System.out.println(instructor + " - instructor does not exist.");
             return;
         }
-
         Date expire = dbMember.getExpire();
         if (!expire.futureDateCheck()) {
             System.out.println(fname + " " + lname + " " + dob.toString() + " membership expired.");
             return;
         }
-        FitnessClass choiceClass = classes.getFitnessClass(new FitnessClass(className, instructor, location)); // For choiceClass, time is not given
+        FitnessClass temporaryFitnessClass = new FitnessClass(className, instructor, location);
+        FitnessClass choiceClass = classes.getFitnessClass(temporaryFitnessClass); //need to somehow print diff things depending on whether classname, instructor or Loc, is null
+        if(printFitnessClassError(temporaryFitnessClass,className, instructor, location)){
+            return;
+        }
         if (choiceClass == null) { //checks if class exists
-            System.out.println(className + " - class does not exist.");
+            System.out.println(className + " by " + instructor + " does not exist at " + location);
             return;
         }
         if (choiceClass.getMember(dbMember) != null) { //check if member is already in the class
             System.out.println(fname + " " + lname + " has already checked in.");
             return;
         }
-
         if(timeConflictCheck(choiceClass,dbMember))
             return;
-
-        //TODO: Mary Lindsey checking in BRIDGEWATER, 08807, SOMERSET - standard membership location restriction.
-        if(!locationAllowed(choiceClass, dbMember)) {//O location is not allowed
-            System.out.println(fname + " " + lname + " checking in " + choiceClass.getLocation().returnFullLocation()
-                                + " - standard membership location restriction.");
-            return; // need full location
-        }
-
+        if(locationAllowedErrorPrint(choiceClass, dbMember, fname, lname))
+            return;
         choiceClass.add(dbMember); //having passed all the above checks, adds the member to the chosen class
         System.out.println(fname + " " + lname + " checked in " + choiceClass.returnPrintString());
         //now print whole fitnessClass, Member.toString, loop through array
         choiceClass.printWholeFitnessClass();
     }
+
+    public boolean  locationAllowedErrorPrint(FitnessClass choiceClass, Member dbMember, String fname, String lname){
+        if(!locationAllowed(choiceClass, dbMember)) {// location is not allowed
+            System.out.println(fname + " " + lname + " checking in " + choiceClass.getLocation().returnFullLocation()
+                    + " - standard membership location restriction.");
+            return true; // need full location
+        }
+        else return false;
+    }
+
+    /**
+     * helper method to help the check in method with print functions for printing the errors of a new fitnessClass
+     * @param fitnessclass
+     */
+    public boolean printFitnessClassError(FitnessClass fitnessclass, String className, String instructor, String location){
+        if (fitnessclass.getClassName() == null) { //checks if class exists
+            System.out.println(className + " - class does not exist.");
+            return true;
+        }
+        if (fitnessclass.getLocation() == null) { //checks if loc exists
+            System.out.println(location + " - invalid location.");
+            return true;
+        }
+        if (fitnessclass.getInstructor() == null) { //checks if loc exists
+            System.out.println(instructor + " - instructor does not exist.");
+            return true;
+        }
+        return false;
+    }
+
+
 
     /**
      * helper method that iterates through fitnessClasses that have a time conflict,
@@ -305,20 +334,73 @@ public class GymManager {
             return;
 
         Member classMember = new Member(fname, lname, dob); //use given info to search for member in class
-
-        FitnessClass choiceClass = classes.getFitnessClass(new FitnessClass(className, instructor, null, location));
+        FitnessClass temporaryFitnessClass = new FitnessClass(className, instructor, location);
+        FitnessClass choiceClass = classes.getFitnessClass(temporaryFitnessClass); //need to somehow print diff things depending on whether classname, instructor or Loc, is null
+        if(printFitnessClassError(temporaryFitnessClass,className, instructor, location)){
+            return;
+        }
         if (choiceClass == null) { //checks if class exists
-            System.out.println(className + "  - class does not exist.");
+            System.out.println(className + " by " + instructor + " does not exist at " + location);
             return;
         }
 
-        if (!choiceClass.remove(classMember)) {
-            System.out.println(fname + " " + lname + " is not a participant in " + className + ".");
+        if (!choiceClass.contains(classMember)){
+            System.out.println(fname + " " + lname + dob + " is not in the database.");
+        }
+        else if (!choiceClass.remove(classMember)) {
+            System.out.println(fname + " " + lname + " did not check in.");
         } else {
-            System.out.println(fname + " " + lname + " dropped " + className + ".");
+            System.out.println(fname + " " + lname + " done with the class.");
         }
     }
 
+    /**
+     * method to check in guests from command line
+     * @param dataTokens
+     */
+    private void checkInGuest(StringTokenizer dataTokens) {
+        String className = dataTokens.nextToken();
+        String instructor = dataTokens.nextToken();
+        String location = dataTokens.nextToken();
+        String fname = dataTokens.nextToken();
+        String lname = dataTokens.nextToken();
+        Date dob = new Date(dataTokens.nextToken());
+        Member testMember = new Member(fname, lname, dob);
+        Member dbMember = DB.getMember(testMember);
+        //check membership
+        if(!(dbMember instanceof Family)){
+            System.out.println("Standard membership - guest check-in is not allowed.");
+            return;
+        }
+        FitnessClass temporaryFitnessClass = new FitnessClass(className, instructor, location); //assuming no errors with this
+        FitnessClass choiceClass = classes.getFitnessClass(temporaryFitnessClass);
+        if(!dbMember.getLocation().returnCapitalized().equalsIgnoreCase(location)){
+            System.out.println(fname + " " + lname + " Guest checking in " + choiceClass.getLocation().returnFullLocation()
+                    + " - guest location restriction");
+            return;
+        }
+
+        /*
+        now we know either premium or family CHECK
+        know this guest can only join the member location CHECK
+        know we must decrement guest passes and also can not CG if no guest passes
+        ^^ thats really all there is, also seems to have no checks
+        have to print with participants and guest
+
+         */
+
+
+        if(locationAllowedErrorPrint(choiceClass, dbMember, fname, lname))
+            return;
+        choiceClass.add(dbMember); //having passed all the above checks, adds the member to the chosen class
+        System.out.println(fname + " " + lname + " checked in " + choiceClass.returnPrintString());
+        //now print whole fitnessClass, Member.toString, loop through array
+        choiceClass.printWholeFitnessClass();
+    }
+
+    public Member getMemberFromFitnessClass(){
+        return null;
+    }
     private void addClasses() {
         Scanner schedFile;
         try {
