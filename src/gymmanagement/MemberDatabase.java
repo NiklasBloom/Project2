@@ -1,13 +1,20 @@
 package gymmanagement;
 
+/**
+ * Class which stores members in a array.
+ * This class can add members, remove, find members
+ * This class also takes members that are instances of Family members and Premium members
+ */
 public class MemberDatabase {
     private Member [] mlist;
     private int size;
 
     public static final int NOT_FOUND = -1;
 
-    /*
-    no argument constructor
+
+    /**
+     * no argument constructor
+     * sets the size to 4 automatically
      */
     public MemberDatabase() {
         this.size=4;
@@ -15,24 +22,13 @@ public class MemberDatabase {
 
     }
 
-    /*
-    getter method to return the mlist
+
+
+    /**
+     * finds a specific member in the mlist, returns the index, or -1 if not found
+     * @param member  - the member we look for in the array
+     * @return the index of the member or -1 if not found
      */
-    public Member[] getMlist(){
-        return this.mlist;
-    }
-
-    /*
-    getter method that returns size
-     */
-    public int getSize(){
-        return this.size;
-    }
-
-
-    /* The find() method searches a member in the list and returns the index if it is found, it returns -1 if the
-    member is not in the list. You must define a constant identifier “NOT_FOUND” for the value -1.
-    */
     private int find(Member member) {
         if(isEmpty()){//if true that list is empty
             return NOT_FOUND;
@@ -48,10 +44,13 @@ public class MemberDatabase {
         return NOT_FOUND;
     }
 
-    /*
-        Returns a reference to a Member in mlist that matches the given Member
-        The given member only requires an fname, lname, and DOB, the other params
-        do not matter for this method.
+
+    /**
+     *  Returns a reference to a Member in mlist that matches the given Member
+     *  The given member only requires an fname, lname, and DOB, the other params
+     *  do not matter for this method.
+     * @param member, the member we want the full reference from the Database
+     * @return the reference for this member in the Mlist with this members full data
      */
     public Member getMember(Member member) {
         if(this.isEmpty()){
@@ -72,6 +71,12 @@ public class MemberDatabase {
         return null;
     }
 
+
+    /**
+     * see if member is of type Family, then Look in the array for member, and return member casted as Family
+     * @param member - the member we search for in the array and return as a Family type
+     * @return the member parameter casted as a Family type
+     */
     public Family getMemberFamily(Member member) {
         if(this.isEmpty()){
             return null;
@@ -95,6 +100,12 @@ public class MemberDatabase {
         return null;
     }
 
+    /**
+     * This method gets a member and returns that member from the database casted as a Premium member, if that member
+     * has the premium membership
+     * @param member, the member we want from the Database as a Premium instance
+     * @return the member from the database that is of type Premium and matches member
+     */
     public Premium getMemberPremium(Member member) {
         if(this.isEmpty()){
             return null;
@@ -118,25 +129,9 @@ public class MemberDatabase {
         return null;
     }
 
-    /*
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj instanceof Member) {
-            Member student = (Member) obj; //casting
-            return student.fname.equalsIgnoreCase(this.fname)
-                    && student.lname.equalsIgnoreCase(this.lname)
-                    && student.dob.equals(this.dob);
-        }
-        return false;
-    }
-     */
 
-
-
-    /*
-    copy array into new array with array size +4
+    /**
+     * grows the database by four, called in the add method when out of room in the array
      */
     private void grow(){
         Member[] arr = new Member[this.size+4];
@@ -145,10 +140,11 @@ public class MemberDatabase {
         this.mlist = arr;
     }
 
-    /*
-    adds a member to the array
-    Returns false if the member already exists in the array
-    Checks if capacity of array is full and then inc size by 4 if full
+
+    /**
+     * adds a new Member instance to the MemberDatabase
+     * @param member - the member we want to add to the database
+     * @return true if the member is added, false otherwise
      */
     public boolean add(Member member){
         if(this.find(member) >= 0){
@@ -171,9 +167,12 @@ public class MemberDatabase {
         return true;
     }
 
-    /*
-    helper method for add method to check whether there is room in mlist array to add another element.
-    If there is no room, the add element will grow() the array.
+
+
+    /**
+     * helper method for add method to check whether there is room in mlist array to add another element.
+     * If there is no room, the add element will grow() the array.
+     * @return true if any element is null in the array, false if the array is full
      */
     public boolean checkCapacity(){
         boolean arrCapacity = false;
@@ -185,9 +184,12 @@ public class MemberDatabase {
         return arrCapacity;
     }
 
-    /*
-      iterates through array, if an element != null, that is there is a member existing in
-       the list, then return false, if no member in whole array, return true
+
+
+    /**iterates through array, if an element != null, then there is a member existing in
+     the list,  return false, if no member exists in whole array, return true
+     *
+     * @return true if the mlist is empty, false otherwie
      */
     public boolean isEmpty() {
         //dont check for size, because could be any size but we just removed all the members
@@ -200,10 +202,13 @@ public class MemberDatabase {
         return true;
     }
 
+
     /**
-    The remove() method remove a member from the list. This method maintains the relative order of the
-    members in the list after the remove, -3 points if this is not done correctly.
-    The container does not decrease in capacity.
+     * The remove() method remove a member from the list. This method maintains the relative order of the
+     * members in the list after the remove, -3 points if this is not done correctly.
+     * The container does not decrease in capacity.
+     * @param member, the member we want to remove from the array
+     * @return true if the member is removed, false otherwise
      */
     public boolean remove(Member member) {
         int memberIndex = find(member);
@@ -240,16 +245,15 @@ public class MemberDatabase {
         }
         for(int i = 0; i < this.size; i++){
             if(this.mlist[i] != null) {
-                /*if(this instanceof FitnessClass){   //FitnessClass requires tabs
-                    System.out.println("\t\t" + this.mlist[i].toString()); //uses member toString method
-                } else {                            //standard member DB; no tabs
-                    System.out.println(this.mlist[i].toString());
-                }*/
                 System.out.println(this.mlist[i].toString());
             }
         }
     }
 
+    /**
+     * helper method used for the PF Command
+     * this method prints the MemberList but also adds the members Membership Fee
+     */
     public void printWithFees() {
         if(isEmpty()) {
             System.out.println("EMPTY");
@@ -322,9 +326,11 @@ public class MemberDatabase {
         this.print();
     }
 
-    /*
-    PN command, display the list of membersin the database ordered by the members’ last names and then first names;
-    that is, if two members have the same last name, ordered by the first name.
+
+
+    /**
+     * PN command, display the list of membersin the database ordered by the members’ last names and then first names;
+     * that is, if two members have the same last name, ordered by the first name.
      */
     public void printByName() {
         if(isEmpty()) {
