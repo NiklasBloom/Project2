@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="All commands completed and working">
+    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="fitnessClass and GymManager Comments done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/MemberDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/MemberDatabase.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666028398717</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="commments">
+      <created>1666039269464</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1666039269464</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -210,7 +219,9 @@
     <MESSAGE value="starting CG command" />
     <MESSAGE value="CG command sorta works, doesnt update guestPasses" />
     <MESSAGE value="All commands completed and working" />
-    <option name="LAST_COMMIT_MESSAGE" value="All commands completed and working" />
+    <MESSAGE value="commments" />
+    <MESSAGE value="fitnessClass and GymManager Comments done" />
+    <option name="LAST_COMMIT_MESSAGE" value="fitnessClass and GymManager Comments done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

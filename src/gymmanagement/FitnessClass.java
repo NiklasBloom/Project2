@@ -1,19 +1,16 @@
 package gymmanagement;
 import java.util.ArrayList;
-//can load a list of fitnessClasses
-//add instance variable for list of classes
-//The ArrayList holds members I assume
 
 /**
 You must include this Java class, which define a fitness class the members can check in. You can define the
 instance variables and methods needed. You must use the enum class Time in this class or lose 2 points.
 Your software shall not allow a member to check in if
-o the membership has expired //just have to use the futureDateCheck() method
-o the member does not exist //just the find method
-o the date of birth is invalid //just the isvalid method
-o the fitness class does not exist //idk just has to match spelling
-o there is a time conflict with other fitness classes // find method in other two fitness classes?
-o the member has already checked in // just the find method in the fitness class
+1) the membership has expired
+2) the member does not exist
+3) the date of birth is invalid
+4) the fitness class does not exist
+5) there is a time conflict with other fitness classes
+6) the member has already checked in
 
 Your software shall not allow the member to drop the class if the member is not checked in, or the date of birth is
 invalid, or the fitness class does not exist.
@@ -21,6 +18,8 @@ invalid, or the fitness class does not exist.
 S command, display the fitness class schedule. A fitness class shall include the fitness class name, instructor’s
 name, the time of the class, and the list of members who have already checked in today. For simplicity, assuming
 the schedule is for “today” only, you do not need to handle a multiple-day schedule.
+
+ This method now includes two Arraylists which hold the members and guests for a specific FitnessClass
  */
 
 public class FitnessClass {
@@ -236,8 +235,8 @@ public class FitnessClass {
 
 
     /**
-     *
-     * @return
+     *Method to determine if the memberList ArrayList is empty or not
+     * @return true if the memberList arrayList is empty, false if not empty
      */
     public boolean isEmpty(){
 
@@ -247,6 +246,10 @@ public class FitnessClass {
         return false;
     }
 
+    /**
+     * this method is the same as isEmpty but for the guest ArrayList
+     * @return true if the Guest ArrayList is empty, false otherwise
+     */
     public boolean isEmptyguest(){
 
         if(this.guestList.size() == 0){
@@ -255,6 +258,11 @@ public class FitnessClass {
         return false;
     }
 
+    /**
+     * Tests to see if the Member ArrayList contains a specific member
+     * @param member, the member we want to see if is in the Member ArrayList
+     * @return true if the member is in the ArrayList, false otherwise
+     */
     public boolean contains(Member member){
         if(this.membersList.contains(member)){
             return true;
@@ -284,7 +292,6 @@ public class FitnessClass {
 
     /**
      * Add method for FitnessClass, Same as MemberDatabase
-     *
      * @return true if the member is added, false otherwise
      * @Param the member we want to add to the mlist
      */
@@ -293,13 +300,6 @@ public class FitnessClass {
         if (member == null) {
             return false;
         }
-        /*if (this.findGuest(member) >= 0) { //already in the ArrayList
-         // we dont need this actually, can have multiple of same guest
-            return false;
-        } //hence find(member) == -1 if we are here
-
-         */
-
         this.guestList.add(member);
         return true;
     }
@@ -307,7 +307,6 @@ public class FitnessClass {
 
     /**
      * Method used for finding if a member reference is in a FitnessClass, returns index or -1.
-     *
      * @param member
      * @return the index of the member if in the ArrayList, returns -1 if not in the arrayList
      */
@@ -326,37 +325,6 @@ public class FitnessClass {
         return -1;
     }
 
-    /**
-     * returns the member reference from the mlist
-     * Returns null if the member is not in the fitnessClass
-     *
-     * @param member the member we want the full member reference
-     * @return the member reference that is in the mlist for the instance or null if not found
-     */
-
-    public Member getGuest(Member member) {
-        if (this.guestList.isEmpty()) {
-            return null;
-        }
-        if (member == null) {
-            return null;
-        }
-        int index = this.findGuest(member); //gives the index of the given member if in the called FitnessClass
-        //now have the index of the member
-        if (index == -1) {
-            return null; //member not in fitnessClass
-        }
-
-        return guestList.get(index);
-    }
-
-    public boolean containsGuest(Member member){
-        if(this.guestList.contains(member)){
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
 
 
