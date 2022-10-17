@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="486b0770-79a6-4ca3-b09e-a0dcbf9ebc81" name="Changes" comment="Fixed some issues, added PF">
+    <list default="true" id="486b0770-79a6-4ca3-b09e-a0dcbf9ebc81" name="Changes" comment="Fix conflicts method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classSchedule.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classSchedule.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/memberList.txt" beforeDir="false" afterPath="$PROJECT_DIR$/memberList.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +16,30 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="Fix conflicts method">
+      <created>1665959546418</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1665959546418</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fix conflicts method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix conflicts method" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

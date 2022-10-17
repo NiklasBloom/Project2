@@ -239,9 +239,17 @@ public class GymManager {
             System.out.println(fname + " " + lname + " has already checked in " + choiceClass.getClassName() + ".");
             return;
         }
-        //check if member is in those classes
+
         if(timeConflictCheck(choiceClass,dbMember))
             return;
+
+        //TODO: Mary Lindsey checking in BRIDGEWATER, 08807, SOMERSET - standard membership location restriction.
+        if(!locationAllowed(choiceClass, dbMember)) {
+            System.out.println(fname + " " + lname + " checking in " + choiceClass.getLocation()
+                                + " - standard membership location restriction.");
+            return;
+        }
+
         choiceClass.add(dbMember); //having passed all the above checks, adds the member to the chosen class
         System.out.println(fname + " " + lname + " checked in " + choiceClass.getClassName() + ".");
     }
@@ -266,6 +274,10 @@ public class GymManager {
             }
         }
         return false;
+    }
+
+    public boolean locationAllowed(FitnessClass choiceClass, Member member){
+        return choiceClass.getLocation() == member.getLocation() || member instanceof Family;
     }
 
 

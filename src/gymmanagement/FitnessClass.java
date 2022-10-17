@@ -175,6 +175,10 @@ public class FitnessClass{
         return this.time;
     }
 
+    public Member.Location getLocation(){
+        return this.location;
+    }
+
 
 
     /**
