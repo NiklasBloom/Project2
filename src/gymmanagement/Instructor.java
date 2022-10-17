@@ -1,5 +1,9 @@
 package gymmanagement;
 
+/**
+ * enum class for the different constructor and helper methods
+ * used as a data field for FitnessClass
+ */
 public enum Instructor{
     JENNIFER,
     DENISE,

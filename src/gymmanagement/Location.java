@@ -1,5 +1,10 @@
 package gymmanagement;
 
+
+/**
+ * enum class for the different location values,
+ * contains helper methods to return the enum constants depending on the given string.
+ */
 public enum Location{
     Bridgewater,
     Edison,
@@ -43,6 +48,10 @@ public enum Location{
         };
     }
 
+    /**
+     * returns the corresponding enum class constant capitalized, used for comparing and printing purposes
+     * @return the name of this Location but capitalized
+     */
     public String returnCapitalized(){
         if(this.name() == null){
             return null;

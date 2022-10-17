@@ -1,7 +1,10 @@
 package gymmanagement;
 import java.util.Calendar;
 
-
+/**
+ * enum class for date
+ * used as data field for Member parent class
+ */
 public class Date implements Comparable<Date> {
     private int year;
     private int month;

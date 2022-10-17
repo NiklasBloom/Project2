@@ -62,19 +62,30 @@ public class FitnessClass {
     }
 
 
+    /**
+     * @return classname data field
+     */
     public ClassNames getClassName() {
         return this.className;
     }
 
-
+    /**
+     * @return time data field
+     */
     public Time getTime() {
         return this.time;
     }
 
+    /**
+     * @return location data field
+     */
     public Location getLocation() {
         return this.location;
     }
 
+    /**
+     * @return instructor data field
+     */
     public Instructor getInstructor() {
         return this.instructor;
     }
