@@ -12,6 +12,14 @@ public class Family extends Member {
         return this.guestPasses;
     }
 
+    public void decrementGuestPasses() {
+        this.guestPasses = this.guestPasses - 1;
+    }
+
+    public void incrementGuestPasses() {
+        this.guestPasses = this.guestPasses + 1;
+    }
+
     //TODO: membershipFee() should work the same as Member class, just return 59.99 instead
     /**
      * @return the value of the next bill; family fee * 3 months + one-time fee

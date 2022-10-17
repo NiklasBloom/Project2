@@ -99,19 +99,16 @@ public class FitnessClass {
                 System.out.println("\t" + membersList.get(i).toString());
             }
         }
+
+
+    }
+
+    public void printWholeFitnessClassGuests() {
         if(!this.guestList.isEmpty()){
             System.out.println("- Guests -");
             for(int i = 0; i < this.guestList.size(); i++) {
                 System.out.println("\t" + guestList.get(i).toString());
             }
-        }
-
-    }
-
-    public void printWholeFitnessClassGuests() {
-        System.out.println("- Guests -");
-        for(int i = 0; i < this.guestList.size(); i++) {
-            System.out.println("\t" + guestList.get(i).toString());
         }
     }
 
@@ -275,9 +272,12 @@ public class FitnessClass {
         if (member == null) {
             return false;
         }
-        if (this.findGuest(member) >= 0) { //already in the ArrayList
+        /*if (this.findGuest(member) >= 0) { //already in the ArrayList
+         // we dont need this actually, can have multiple of same guest
             return false;
         } //hence find(member) == -1 if we are here
+
+         */
 
         this.guestList.add(member);
         return true;

@@ -87,6 +87,9 @@ public class ClassSchedule {
                 if(!aClass.isEmpty()){
                     aClass.printWholeFitnessClass();
                 }
+                if(!aClass.isEmptyguest()){
+                    aClass.printWholeFitnessClassGuests();
+                }
 
             }
         }

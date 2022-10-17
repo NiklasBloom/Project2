@@ -14,6 +14,14 @@ public class Premium extends Family {
         return guestPasses;
     }
 
+    public void decrementGuestPasses() {
+        this.guestPasses = this.guestPasses - 1;
+    }
+
+    public void incrementGuestPasses() {
+        this.guestPasses = this.guestPasses + 1;
+    }
+
     /**
      * @return the value of the next bill; family fee * 11 months
      */

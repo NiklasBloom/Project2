@@ -90,7 +90,7 @@ public class GymManager {
             case "LS" -> addClasses();
             case "LM" -> loadMembers();
             case "CG" -> checkInGuest(lineTokens);
-            case "DG" -> loadMembers();
+            case "DG" -> dropClassGuest(lineTokens);
             default -> System.out.println(command + " is an invalid command!");
         }
         return false;
@@ -355,7 +355,10 @@ public class GymManager {
     }
 
     /**
-     * method to check in guests from command line
+     * Helper method to execute the CG command, adds a guest to the  Fitness Class Guest ArrayList.
+     * Only adds to the Guest ArrayList if not a standard membership, not at a diff location to one on membership instance,
+     * guest Passes =/= 0
+     *If these conditions are met, then a guest is added, guestpasses are decremented, and printed
      * @param dataTokens
      */
     private void checkInGuest(StringTokenizer dataTokens) {
@@ -369,7 +372,6 @@ public class GymManager {
         Member dbMember = DB.getMember(testMember);
         Date expire = dbMember.getExpire();
         Location locationActual = dbMember.getLocation();
-        //check membership
         if(!(dbMember instanceof Family)){
             System.out.println("Standard membership - guest check-in is not allowed.");
             return;
@@ -387,11 +389,12 @@ public class GymManager {
           if(premiumMember.getGuestPasses() == 0){//never 0 since a new object just called, //
               System.out.println(fname + " " + lname + " ran out of guest pass.");
               return;
-              //Jerry Brown ran out of guest pass.
           }
             choiceClass.addGuest(premiumMember); //having passed all the above checks, adds the member to the chosen class
+            premiumMember.decrementGuestPasses();
             System.out.println(fname + " " + lname + " (guest) checked in " + choiceClass.returnPrintString());
             choiceClass.printWholeFitnessClass();
+            choiceClass.printWholeFitnessClassGuests();
         } else{
             Family familyMemberTemp = new Family(fname, lname, dob,expire,locationActual);
             Family familyMember = DB.getMemberFamily(familyMemberTemp);
@@ -400,17 +403,47 @@ public class GymManager {
                 return;
             }
             choiceClass.addGuest(familyMember); //having passed all the above checks, adds the member to the chosen class
+            familyMember.decrementGuestPasses();
             System.out.println(fname + " " + lname + " (guest) checked in " + choiceClass.returnPrintString());
             choiceClass.printWholeFitnessClass();
+            choiceClass.printWholeFitnessClassGuests();
         }
-        /*
-        now we know either premium or family CHECK
-        know this guest can only join the member location CHECK
-        know we must decrement guest passes and also can not CG if no guest passes
-        have to update the guest passes in all DB, make helper method which searches all fitnessClasses and updates the guestPasses?
-        ^^ thats really all there is, also seems to have no checks
-        have to print with participants and guest
-         */
+    }
+
+    private void dropClassGuest(StringTokenizer dataTokens) {
+        String className = new String(dataTokens.nextToken());
+        String instructor = dataTokens.nextToken();
+        String location = dataTokens.nextToken();
+        String fname = dataTokens.nextToken();
+        String lname = dataTokens.nextToken();
+        Date dob = new Date(dataTokens.nextToken());
+
+        Member testMember = new Member(fname, lname, dob);
+        Member dbMember = DB.getMember(testMember);
+        Date expire = dbMember.getExpire();
+        Location locationActual = dbMember.getLocation();
+
+        FitnessClass temporaryFitnessClass = new FitnessClass(className, instructor, location); //assuming no errors with this
+        FitnessClass choiceClass = classes.getFitnessClass(temporaryFitnessClass);
+        //Jonnathan Wei Guest done with the class.
+
+        if(dbMember instanceof Premium){
+            Premium premiumMemberTemp =  new Premium(fname, lname, dob,expire,locationActual);
+            Premium premiumMember = DB.getMemberPremium(premiumMemberTemp);
+
+            choiceClass.removeGuest(premiumMember); //having passed all the above checks, adds the member to the chosen class
+            premiumMember.incrementGuestPasses();
+            System.out.println(fname + " " + lname + " Guest done with the class.");
+
+        } else{
+            Family familyMemberTemp = new Family(fname, lname, dob,expire,locationActual);
+            Family familyMember = DB.getMemberFamily(familyMemberTemp);
+
+            choiceClass.removeGuest(familyMember); //having passed all the above checks, adds the member to the chosen class
+            familyMember.incrementGuestPasses();
+            System.out.println(fname + " " + lname + " Guest done with the class.");
+
+        }
     }
 
     private void addClasses() {
