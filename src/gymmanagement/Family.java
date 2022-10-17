@@ -1,9 +1,17 @@
 package gymmanagement;
 
+
+/**
+ * subclass of Member,
+ * new guest passes data field, keep traks of remaining guest passes for this member
+ */
 public class Family extends Member {
     private int guestPasses;
 
-    //TODO: add guestPasses field to track number of passes left
+
+    /**
+     *5 arg constructor, takes fname, lname, dob, expire, location
+     */
     public Family(String fname, String lname, Date dob, Date expire, Location location) {
         super(fname, lname, dob, expire, location);
         this.guestPasses = 1;
@@ -12,10 +20,16 @@ public class Family extends Member {
         return this.guestPasses;
     }
 
+    /**
+     * decrements guest passes by 1
+     */
     public void decrementGuestPasses() {
         this.guestPasses = this.guestPasses - 1;
     }
 
+    /**
+     * increments guest passes by 1
+     */
     public void incrementGuestPasses() {
         this.guestPasses = this.guestPasses + 1;
     }

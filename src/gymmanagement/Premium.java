@@ -3,21 +3,36 @@ package gymmanagement;
 public class Premium extends Family {
     private int guestPasses;
 
-    //TODO: override guestPasses field to have 3 available
+
+    /**
+     * 5 arg constructor that takes fname, lname, dob, expire, and location, calls on the parent class
+     * which is family
+     */
+
     public Premium(String fname, String lname, Date dob, Date expire, Location location) {
         super(fname, lname, dob, expire, location);
         this.guestPasses = 3;
     }
 
 
+    /**
+     * returns the guestpasses
+     * @return guestPasses datafield for this instance
+     */
     public int getGuestPasses() {
         return guestPasses;
     }
 
+    /**
+     * decrements the guestPasses by 1
+     */
     public void decrementGuestPasses() {
         this.guestPasses = this.guestPasses - 1;
     }
 
+    /**
+     * increments guestPasses by 1
+     */
     public void incrementGuestPasses() {
         this.guestPasses = this.guestPasses + 1;
     }
