@@ -99,12 +99,7 @@ public class Date implements Comparable<Date> {
      * getter method for the month if given a date in String format
      * @param date is a date in String format
      * @returns an int which is the month of the given date String
-     */
-    public static int getDateMonth(String date){
-        String[] tokens=date.split("/");
-        String year = tokens[0];
-        return Integer.parseInt(year);
-    }
+     *
 
     /**
      * getter method for the Day if given a date in String format

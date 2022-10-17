@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="Revert &quot;commit&quot;&#10;&#10;This reverts commit 2685835d">
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/Family.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Family.java" afterDir="false" />
+    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="some updates">
+      <change afterPath="$PROJECT_DIR$/src/gymmanagement/ClassNames.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gymmanagement/Instructor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gymmanagement/Location.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gymmanagement/Time.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/Date.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Date.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gymmanagement/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Member.java" afterDir="false" />
@@ -20,6 +24,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -114,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665521666955</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="some updates">
+      <created>1665957409038</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1665957409040</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,9 +163,47 @@
     </ignored-roots>
     <MESSAGE value="test" />
     <MESSAGE value="Some minor changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Some minor changes" />
+    <MESSAGE value="some updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="some updates" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/gymmanagement/GymManager.java</url>
+          <line>320</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/gymmanagement/GymManager.java</url>
+          <line>322</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/gymmanagement/FitnessClass.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/gymmanagement/FitnessClass.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/gymmanagement/FitnessClass.java</url>
+          <line>39</line>
+          <properties class="gymmanagement.FitnessClass" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="fname.value" />

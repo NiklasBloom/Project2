@@ -140,7 +140,7 @@ public class GymManager {
         Date expire = new Date(String.valueOf(exp.get(Calendar.MONTH) + 1) + "/" + String.valueOf(exp.get(Calendar.DATE))
                                 + "/" + String.valueOf(exp.get(Calendar.YEAR)));
         String locParam = dataTokens.nextToken();
-        Member.Location location = Member.Location.parseLocation(locParam);
+        Location location = Location.parseLocation(locParam);
         if (location == null) {
             System.out.println(locParam + ": invalid location!");
             return;
@@ -279,7 +279,6 @@ public class GymManager {
         String className = new String(dataTokens.nextToken());
         String instructor = dataTokens.nextToken();
         String location = dataTokens.nextToken();
-
         String fname = dataTokens.nextToken();
         String lname = dataTokens.nextToken();
 
@@ -318,8 +317,7 @@ public class GymManager {
             String className = lineTokens.nextToken();
             String instructor = lineTokens.nextToken();
             String time = lineTokens.nextToken();
-            String location = lineTokens.nextToken();
-
+            String location = lineTokens.nextToken(); // if any are null then continue? never null, being set to null by constructor
             FitnessClass newClass = new FitnessClass(className, instructor, time, location);
             classes.add(newClass);
             newClass.print();
@@ -353,7 +351,7 @@ public class GymManager {
                 return;
             }
             String locParam = new String(dataTokens.nextToken());
-            Member.Location location = Member.Location.parseLocation(locParam);
+            Location location = Location.parseLocation(locParam);
             if (location == null) {
                 System.out.println(locParam + ": invalid location!");
                 return;

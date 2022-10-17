@@ -5,43 +5,8 @@ public class Member implements Comparable<Member>{
     private String lname;
     private Date dob;
     private Date expire;
-    private Location location;
+    private gymmanagement.Location location;
 
-
-    /**
-    Location constants for Location data field
-     */
-    enum Location{
-        Bridgewater,
-        Edison,
-        Franklin,
-        Piscataway,
-        Somerville;
-
-        /**
-        Takes a String locStr and if its characters matches one of the locations, then return
-         that location.
-         @Param takes a string which should be one of the Gym Locations
-         @returns a location variable if the string parameter matches one of the locations
-         */
-        public static Location parseLocation(String locStr){
-            String locNormalized = locStr.toLowerCase();
-            Member.Location location;
-            return switch (locNormalized) {  //TODO: maybe make this its own method
-                case "piscataway" -> Location.Piscataway;
-                case "bridgewater" -> Location.Bridgewater;
-                case "edison" -> Location.Edison;
-                case "franklin" -> Location.Franklin;
-                case "somerville" -> Location.Somerville;
-                default -> null;
-            };
-        }
-
-        public String returnCapitalized(){
-            String name = this.name().toUpperCase();
-            return name;
-        }
-    }
 
     /**
     constructor for Member Class with each parameter given
@@ -50,6 +15,7 @@ public class Member implements Comparable<Member>{
      */
     public Member(String fname, String lname,
                   Date dob, Date expire, Location location) {
+
         this.location = location;
         this.fname = fname;
         this.lname = lname;
