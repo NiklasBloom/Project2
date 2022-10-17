@@ -9,6 +9,11 @@ public class Premium extends Family {
         this.guestPasses = 3;
     }
 
+
+    public int getGuestPasses() {
+        return guestPasses;
+    }
+
     /**
      * @return the value of the next bill; family fee * 11 months
      */
@@ -26,4 +31,5 @@ public class Premium extends Family {
         //checks if membership is expired, and change wording from "expires" to "expired" accordingly
         return (new Member(this.getFname(), this.getLname(), this.getDob(), this.getExpire(), this.getLocation())).toString() + ", (Premium) guest-pass remaining: " + String.valueOf(this.guestPasses);
     }
+
 }

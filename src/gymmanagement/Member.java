@@ -3,8 +3,8 @@ package gymmanagement;
 public class Member implements Comparable<Member>{
     private String fname;
     private String lname;
-    private Date dob;
-    private Date expire;
+    private gymmanagement.Date dob;
+    private gymmanagement.Date expire;
     private gymmanagement.Location location;
 
 
@@ -78,6 +78,7 @@ public class Member implements Comparable<Member>{
                     && student.lname.equalsIgnoreCase(this.lname)
                     && student.dob.equals(this.dob);
         }
+
         return false;
     }
 

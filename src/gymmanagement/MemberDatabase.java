@@ -72,6 +72,67 @@ public class MemberDatabase {
         return null;
     }
 
+    public Family getMemberFamily(Member member) {
+        if(this.isEmpty()){
+            return null;
+        }
+        if(member == null){
+            return null;
+        } else if (member.getFname() == null || member.getLname() == null || member.getDob() == null){
+            return null;
+        }
+        if(member instanceof Family){
+            Family memberFamily = (Family) member; //cast as a Family member
+            for (int i = 0; i < size; i++){
+                if(this.mlist[i] != null) {
+                    if(this.mlist[i].equals(memberFamily)) {
+                        return (Family) this.mlist[i]; // if family instance, returns member which is equal to this instance
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public Premium getMemberPremium(Member member) {
+        if(this.isEmpty()){
+            return null;
+        }
+        if(member == null){
+            return null;
+        } else if (member.getFname() == null || member.getLname() == null || member.getDob() == null){
+            return null;
+        }
+        if(member instanceof Premium){
+            Premium memberPremium = (Premium) member; //cast as a Family member
+            for (int i = 0; i < size; i++){
+                if(this.mlist[i] != null) {
+                    if(this.mlist[i].equals(memberPremium)) {
+                        return (Premium) this.mlist[i]; // if family instance, returns member which is equal to this instance
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /*
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof Member) {
+            Member student = (Member) obj; //casting
+            return student.fname.equalsIgnoreCase(this.fname)
+                    && student.lname.equalsIgnoreCase(this.lname)
+                    && student.dob.equals(this.dob);
+        }
+        return false;
+    }
+     */
+
 
 
     /*

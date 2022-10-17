@@ -8,6 +8,9 @@ public class Family extends Member {
         super(fname, lname, dob, expire, location);
         this.guestPasses = 1;
     }
+    public int getGuestPasses() {
+        return this.guestPasses;
+    }
 
     //TODO: membershipFee() should work the same as Member class, just return 59.99 instead
     /**
@@ -29,4 +32,6 @@ public class Family extends Member {
         //checks if membership is expired, and change wording from "expires" to "expired" accordingly
         return super.toString() + ", (Family) guest-pass remaining: " + String.valueOf(this.guestPasses);
     }
+
+
 }

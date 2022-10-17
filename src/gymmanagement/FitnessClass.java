@@ -93,10 +93,19 @@ public class FitnessClass {
     }
 
     public void printWholeFitnessClass() {
-        System.out.println("- Participants -");
-        for(int i = 0; i < this.membersList.size(); i++) {
-            System.out.println("\t" + membersList.get(i).toString());
+        if(!this.membersList.isEmpty()){
+            System.out.println("- Participants -");
+            for(int i = 0; i < this.membersList.size(); i++) {
+                System.out.println("\t" + membersList.get(i).toString());
+            }
         }
+        if(!this.guestList.isEmpty()){
+            System.out.println("- Guests -");
+            for(int i = 0; i < this.guestList.size(); i++) {
+                System.out.println("\t" + guestList.get(i).toString());
+            }
+        }
+
     }
 
     public void printWholeFitnessClassGuests() {
@@ -220,14 +229,20 @@ public class FitnessClass {
         return false;
     }
 
+    public boolean isEmptyguest(){
+
+        if(this.guestList.size() == 0){
+            return true;
+        }
+        return false;
+    }
+
     public boolean contains(Member member){
         if(this.membersList.contains(member)){
             return true;
         } else {
             return false;
         }
-
-
     }
 
 
@@ -311,7 +326,15 @@ public class FitnessClass {
             return null; //member not in fitnessClass
         }
 
-        return membersList.get(index);
+        return guestList.get(index);
+    }
+
+    public boolean containsGuest(Member member){
+        if(this.guestList.contains(member)){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
