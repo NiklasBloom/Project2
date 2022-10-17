@@ -27,6 +27,22 @@ public enum Location{
         };
     }
 
+    /**
+     * helper method that returns the supplementary information for a given location
+     * @return
+     */
+    public String returnFullLocation(){
+
+        return switch (this.name().toLowerCase()) {
+            case "piscataway" -> "PISCATAWAY, 08854, MIDDLESEX";
+            case "bridgewater" -> "BRIDGEWATER, 08807, SOMERSET";
+            case "edison" -> "EDISON, 08837, MIDDLESEX";
+            case "franklin" -> "FRANKLIN, 08873, SOMERSET";
+            case "somerville" -> "SOMERVILLE, 08876, SOMERSET";
+            default -> null;
+        };
+    }
+
     public String returnCapitalized(){
         if(this.name() == null){
             return null;

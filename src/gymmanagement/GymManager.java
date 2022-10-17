@@ -10,7 +10,6 @@ package gymmanagement;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.charset.StandardCharsets; //are we allowed to import this package
 import java.util.Calendar;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -236,7 +235,7 @@ public class GymManager {
             return;
         }
         if (choiceClass.getMember(dbMember) != null) { //check if member is already in the class
-            System.out.println(fname + " " + lname + " has already checked in " + choiceClass.getClassName() + ".");
+            System.out.println(fname + " " + lname + " has already checked in.");
             return;
         }
 
@@ -244,14 +243,16 @@ public class GymManager {
             return;
 
         //TODO: Mary Lindsey checking in BRIDGEWATER, 08807, SOMERSET - standard membership location restriction.
-        if(!locationAllowed(choiceClass, dbMember)) {
-            System.out.println(fname + " " + lname + " checking in " + choiceClass.getLocation()
+        if(!locationAllowed(choiceClass, dbMember)) {//O location is not allowed
+            System.out.println(fname + " " + lname + " checking in " + choiceClass.getLocation().returnFullLocation()
                                 + " - standard membership location restriction.");
-            return;
+            return; // need full location
         }
 
         choiceClass.add(dbMember); //having passed all the above checks, adds the member to the chosen class
-        System.out.println(fname + " " + lname + " checked in " + choiceClass.getClassName() + ".");
+        System.out.println(fname + " " + lname + " checked in " + choiceClass.returnPrintString());
+        //now print whole fitnessClass, Member.toString, loop through array
+        choiceClass.printWholeFitnessClass();
     }
 
     /**
@@ -267,8 +268,8 @@ public class GymManager {
         for (FitnessClass aClass : conflicts) {
             if (aClass != null) {
                 if (!aClass.equals(choiceClass) && (aClass.getMember(member) != null)) {
-                    System.out.println(choiceClass.getClassName() + " time conflict -- " +
-                            member.getFname() + " " + member.getLname() + " has already checked in " + aClass.getClassName() + ".");
+                    System.out.println("Time conflict - " + choiceClass.getClassName() + "- " +
+                            choiceClass.returnPrintStringForTimeConflict());
                     return true;
                 }
             }

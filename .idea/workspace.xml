@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="separate enum classes and now work normally should work" />
+    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="separate enum classes and now work normally should work">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Location.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -123,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665979610347</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="separate enum classes and now work normally should work">
+      <created>1665980138741</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1665980138743</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -172,33 +185,28 @@
           <option name="timeStamp" value="1" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/gymmanagement/GymManager.java</url>
-          <line>338</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/gymmanagement/GymManager.java</url>
-          <line>340</line>
-          <option name="timeStamp" value="8" />
+          <url>file://$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gymmanagement/FitnessClass.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="10" />
+          <line>197</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/gymmanagement/FitnessClass.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/src/gymmanagement/GymManager.java</url>
+          <line>231</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/gymmanagement/FitnessClass.java</url>
-          <line>39</line>
-          <properties class="gymmanagement.FitnessClass" method="&lt;init&gt;">
+          <url>file://$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java</url>
+          <line>31</line>
+          <properties class="gymmanagement.ClassSchedule" method="getFitnessClass">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="9" />
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

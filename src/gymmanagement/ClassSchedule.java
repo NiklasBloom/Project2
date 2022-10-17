@@ -33,9 +33,11 @@ public class ClassSchedule {
         if(this.isEmpty()){
             return null;
         }
-        if(fitnessClass == null){
+        if(fitnessClass == null ||fitnessClass.getClassName() == null
+        || fitnessClass.getLocation() == null ||fitnessClass.getInstructor() == null){
             return null;
         }
+
         for (FitnessClass aClass : this.classes) {
             if (aClass != null) {
                 if (aClass.equals(fitnessClass)) {
