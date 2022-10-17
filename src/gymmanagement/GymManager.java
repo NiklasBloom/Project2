@@ -264,7 +264,8 @@ public class GymManager {
 
     /**
      * helper method to help the check in method with print functions for printing the errors of a new fitnessClass
-     * @param fitnessclass
+     * Reports error if Classname, instructor, location is null
+     * @param fitnessclass, which is the fitness Class we want to check for errors.
      */
     public boolean printFitnessClassError(FitnessClass fitnessclass, String className, String instructor, String location){
         if (fitnessclass.getClassName() == null) { //checks if class exists
@@ -446,6 +447,12 @@ public class GymManager {
         }
     }
 
+
+    /**
+     * method that reads from the classSchedule.txt file and adds each line as a fitness Class to the
+     * class Schedule array.
+     * This method also prints the full array of fitness Classes
+     */
     private void addClasses() {
         Scanner schedFile;
         try {
@@ -471,6 +478,11 @@ public class GymManager {
         System.out.println("-end of class list.\n");
     }
 
+
+    /**
+     * Method that reads from the memberList.txt file and adds members to the Member Database
+     * This method also reports if there is an error with the loading of the text file.
+     */
     private void loadMembers() {
         Scanner memFile;
         try {

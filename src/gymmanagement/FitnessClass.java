@@ -92,6 +92,9 @@ public class FitnessClass {
         System.out.println(this.className.returnCapitalized() + " - " + this.instructor + ", " + this.time + ", " + this.location.returnCapitalized());
     }
 
+    /**
+     * prints the entire Member ArrayList
+     */
     public void printWholeFitnessClass() {
         if(!this.membersList.isEmpty()){
             System.out.println("- Participants -");
@@ -103,6 +106,9 @@ public class FitnessClass {
 
     }
 
+    /**
+     * prints the entire guest ArrayList
+     */
     public void printWholeFitnessClassGuests() {
         if(!this.guestList.isEmpty()){
             System.out.println("- Guests -");
@@ -112,6 +118,9 @@ public class FitnessClass {
         }
     }
 
+    /**
+     * @return returns what the print method prints, as a string
+     */
     public String returnPrintString() {
         return (this.className.returnCapitalized() + " - " + this.instructor + ", " + this.time + ", " + this.location.returnCapitalized());
     }
@@ -203,6 +212,14 @@ public class FitnessClass {
         return membersList.get(index);
     }
 
+
+    /**
+     * Tests if two fitnessClasses are equal by comparing Classname, instructor, and location
+     *
+     * @param obj which is supposed to take in a FitnessClass as parameter
+     * @return false if not equal or null or obj is not a fitnessClass, returns true if
+     * this fitnessclass is equal to the given fitnessClass
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -218,6 +235,10 @@ public class FitnessClass {
     }
 
 
+    /**
+     *
+     * @return
+     */
     public boolean isEmpty(){
 
         if(this.membersList.size() == 0){

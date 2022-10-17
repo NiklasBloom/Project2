@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="CG command sorta works, doesnt update guestPasses">
+    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="All commands completed and working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/ClassSchedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/Family.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Family.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/FitnessClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/GymManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/Premium.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Premium.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666022138633</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="All commands completed and working">
+      <created>1666028398717</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1666028398717</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -207,7 +209,8 @@
     <MESSAGE value="more check in commands now work" />
     <MESSAGE value="starting CG command" />
     <MESSAGE value="CG command sorta works, doesnt update guestPasses" />
-    <option name="LAST_COMMIT_MESSAGE" value="CG command sorta works, doesnt update guestPasses" />
+    <MESSAGE value="All commands completed and working" />
+    <option name="LAST_COMMIT_MESSAGE" value="All commands completed and working" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
