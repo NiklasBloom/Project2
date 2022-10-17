@@ -379,6 +379,8 @@ public class GymManager {
                     + " - guest location restriction");
             return;
         }
+        //get the family or premium instance
+        //
 
         /*
         now we know either premium or family CHECK
@@ -388,14 +390,14 @@ public class GymManager {
         have to print with participants and guest
 
          */
-
-
         if(locationAllowedErrorPrint(choiceClass, dbMember, fname, lname))
             return;
         choiceClass.add(dbMember); //having passed all the above checks, adds the member to the chosen class
-        System.out.println(fname + " " + lname + " checked in " + choiceClass.returnPrintString());
+        System.out.println(fname + " " + lname + " (guest) checked in " + choiceClass.returnPrintString());
         //now print whole fitnessClass, Member.toString, loop through array
         choiceClass.printWholeFitnessClass();
+
+
     }
 
     public Member getMemberFromFitnessClass(){

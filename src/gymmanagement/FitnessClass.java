@@ -97,7 +97,13 @@ public class FitnessClass {
         for(int i = 0; i < this.membersList.size(); i++) {
             System.out.println("\t" + membersList.get(i).toString());
         }
+    }
 
+    public void printWholeFitnessClassGuests() {
+        System.out.println("- Guests -");
+        for(int i = 0; i < this.guestList.size(); i++) {
+            System.out.println("\t" + guestList.get(i).toString());
+        }
     }
 
     public String returnPrintString() {
@@ -222,6 +228,91 @@ public class FitnessClass {
         }
 
 
-    }}
+    }
+
+
+    /**
+     * Remove method for FitnessClass, Same as Member Database, uses ArrayList package
+     *
+     * @param member the member reference we want to search for and remove from this instance's mlist
+     * @return true if the member is removed, false otherwise
+     */
+    public boolean removeGuest(Member member) {
+        if (member == null) {
+            return false;
+        }
+        int index = this.findGuest(member);
+        if (index == -1) {
+            return false; // member not in the array so we didnt remove
+        } //therefore index must now be index of the member reference in the array
+        this.guestList.remove(index);
+        return true;
+    }
+
+    /**
+     * Add method for FitnessClass, Same as MemberDatabase
+     *
+     * @return true if the member is added, false otherwise
+     * @Param the member we want to add to the mlist
+     */
+
+    public boolean addGuest(Member member) {
+        if (member == null) {
+            return false;
+        }
+        if (this.findGuest(member) >= 0) { //already in the ArrayList
+            return false;
+        } //hence find(member) == -1 if we are here
+
+        this.guestList.add(member);
+        return true;
+    }
+
+
+    /**
+     * Method used for finding if a member reference is in a FitnessClass, returns index or -1.
+     *
+     * @param member
+     * @return the index of the member if in the ArrayList, returns -1 if not in the arrayList
+     */
+    private int findGuest(Member member) {
+        if (this.guestList.isEmpty()) {//if true that list is empty
+            return -1; //CONSTANTS ENUM CLASS
+        }
+
+        for (int i = 0; i < this.guestList.size(); i++) {
+            if (this.guestList.get(i) != null) {
+                if (this.guestList.get(i).equals(member)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * returns the member reference from the mlist
+     * Returns null if the member is not in the fitnessClass
+     *
+     * @param member the member we want the full member reference
+     * @return the member reference that is in the mlist for the instance or null if not found
+     */
+
+    public Member getGuest(Member member) {
+        if (this.guestList.isEmpty()) {
+            return null;
+        }
+        if (member == null) {
+            return null;
+        }
+        int index = this.findGuest(member); //gives the index of the given member if in the called FitnessClass
+        //now have the index of the member
+        if (index == -1) {
+            return null; //member not in fitnessClass
+        }
+
+        return membersList.get(index);
+    }
+}
 
 
