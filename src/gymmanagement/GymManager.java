@@ -220,7 +220,7 @@ public class GymManager {
             System.out.println(fname + " " + lname + " " + dob.toString() + " is not in the database.");
             return;
         }
-        if (FitnessClass.Instructor.returnInstructor(instructor) == null){
+        if (Instructor.returnInstructor(instructor) == null){
             System.out.println(instructor + " - instructor does not exist.");
             return;
         }

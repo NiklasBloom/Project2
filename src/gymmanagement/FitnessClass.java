@@ -42,7 +42,21 @@ public class FitnessClass{
         this.instructor = Instructor.returnInstructor(instructor); //this calls on method in Instructor Enum Class
         this.time = Time.returnTime(time);
         this.location = Location.parseLocation(location);
+        this.membersList = new ArrayList<Member>();
     }
+
+    /**
+     * Constructor for when time isn't specified; still enough info to find a class in the schedule.
+     * @param fitnessClass
+     * @param instructor
+     * @param location
+     */
+    public FitnessClass(String fitnessClass, String instructor, String location) {
+        this.className = ClassNames.returnClassName(fitnessClass);
+        this.instructor = Instructor.returnInstructor(instructor); //this calls on method in Instructor Enum Class
+        this.location = Location.parseLocation(location);
+    }
+
 
 
 
@@ -55,7 +69,9 @@ public class FitnessClass{
         return this.time;
     }
 
-
+    public Location getLocation(){
+        return this.location;
+    }
 
     /**
     Prints the fitnessClass data in the below format:
@@ -145,7 +161,7 @@ public class FitnessClass{
             return null; //member not in fitnessClass
         }
 
-        return null;
+        return membersList.get(index);
     }
 
     @Override
