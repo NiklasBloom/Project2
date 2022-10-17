@@ -185,7 +185,7 @@ public class FitnessClass {
      */
     private int find(Member member) {
         if (this.membersList.isEmpty()) {//if true that list is empty
-            return -1; //CONSTANTS ENUM CLASS
+            return -1;
         }
 
         for (int i = 0; i < this.membersList.size(); i++) {

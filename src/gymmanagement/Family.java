@@ -8,7 +8,6 @@ package gymmanagement;
 public class Family extends Member {
     private int guestPasses;
 
-
     /**
      *5 arg constructor, takes fname, lname, dob, expire, location
      */
@@ -16,6 +15,7 @@ public class Family extends Member {
         super(fname, lname, dob, expire, location);
         this.guestPasses = 1;
     }
+
     public int getGuestPasses() {
         return this.guestPasses;
     }
