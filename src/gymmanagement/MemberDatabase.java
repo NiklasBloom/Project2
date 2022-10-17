@@ -262,7 +262,7 @@ public class MemberDatabase {
         for(int i = 0; i < this.size; i++){
             if(this.mlist[i] != null) {
                 System.out.println(this.mlist[i].toString()
-                        + ", Membership fee: " + String.valueOf(this.mlist[i].membershipFee()));
+                        + ", Membership fee: $" + String.valueOf(this.mlist[i].membershipFee()));
             }
         }
     }

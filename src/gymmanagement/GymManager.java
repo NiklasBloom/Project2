@@ -240,7 +240,7 @@ public class GymManager {
             return;
         }
         if (choiceClass.getMember(dbMember) != null) { //check if member is already in the class
-            System.out.println(fname + " " + lname + " has already checked in.");
+            System.out.println(fname + " " + lname + " already checked in.");
             return;
         }
         if(timeConflictCheck(choiceClass,dbMember))
@@ -251,6 +251,7 @@ public class GymManager {
         System.out.println(fname + " " + lname + " checked in " + choiceClass.returnPrintString());
         //now print whole fitnessClass, Member.toString, loop through array
         choiceClass.printWholeFitnessClass();
+        System.out.println();
     }
 
     public boolean  locationAllowedErrorPrint(FitnessClass choiceClass, Member dbMember, String fname, String lname){
@@ -298,7 +299,7 @@ public class GymManager {
         for (FitnessClass aClass : conflicts) {
             if (aClass != null) {
                 if (!aClass.equals(choiceClass) && (aClass.getMember(member) != null)) {
-                    System.out.println("Time conflict - " + choiceClass.getClassName() + "- " +
+                    System.out.println("Time conflict - " + choiceClass.getClassName() + " - " +
                             choiceClass.returnPrintStringForTimeConflict());
                     return true;
                 }
@@ -335,6 +336,12 @@ public class GymManager {
             return;
 
         Member classMember = new Member(fname, lname, dob); //use given info to search for member in class
+        Member dbMember = DB.getMember(classMember); //get the reference to the member in the DB, if it matches
+        if (dbMember == null) {
+            System.out.println(fname + " " + lname + " " + dob + " is not in the database.");
+            return;
+        }
+
         FitnessClass temporaryFitnessClass = new FitnessClass(className, instructor, location);
         FitnessClass choiceClass = classes.getFitnessClass(temporaryFitnessClass); //need to somehow print diff things depending on whether classname, instructor or Loc, is null
         if(printFitnessClassError(temporaryFitnessClass,className, instructor, location)){
@@ -345,10 +352,7 @@ public class GymManager {
             return;
         }
 
-        if (!choiceClass.contains(classMember)){
-            System.out.println(fname + " " + lname + dob + " is not in the database.");
-        }
-        else if (!choiceClass.remove(classMember)) {
+        if (!choiceClass.remove(classMember)) {
             System.out.println(fname + " " + lname + " did not check in.");
         } else {
             System.out.println(fname + " " + lname + " done with the class.");
@@ -381,7 +385,7 @@ public class GymManager {
         FitnessClass choiceClass = classes.getFitnessClass(temporaryFitnessClass);
         if(!dbMember.getLocation().returnCapitalized().equalsIgnoreCase(location)){
             System.out.println(fname + " " + lname + " Guest checking in " + choiceClass.getLocation().returnFullLocation()
-                    + " - guest location restriction");
+                    + " - guest location restriction.");
             return;
         }
         if(dbMember instanceof Premium){
@@ -393,9 +397,6 @@ public class GymManager {
           }
             choiceClass.addGuest(premiumMember); //having passed all the above checks, adds the member to the chosen class
             premiumMember.decrementGuestPasses();
-            System.out.println(fname + " " + lname + " (guest) checked in " + choiceClass.returnPrintString());
-            choiceClass.printWholeFitnessClass();
-            choiceClass.printWholeFitnessClassGuests();
         } else{
             Family familyMemberTemp = new Family(fname, lname, dob,expire,locationActual);
             Family familyMember = DB.getMemberFamily(familyMemberTemp);
@@ -405,10 +406,11 @@ public class GymManager {
             }
             choiceClass.addGuest(familyMember); //having passed all the above checks, adds the member to the chosen class
             familyMember.decrementGuestPasses();
-            System.out.println(fname + " " + lname + " (guest) checked in " + choiceClass.returnPrintString());
-            choiceClass.printWholeFitnessClass();
-            choiceClass.printWholeFitnessClassGuests();
         }
+        System.out.println(fname + " " + lname + " (guest) checked in " + choiceClass.returnPrintString());
+        choiceClass.printWholeFitnessClass();
+        choiceClass.printWholeFitnessClassGuests();
+        System.out.println();
     }
 
     private void dropClassGuest(StringTokenizer dataTokens) {

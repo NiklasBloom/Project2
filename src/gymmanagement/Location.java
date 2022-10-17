@@ -22,7 +22,7 @@ public enum Location{
     public static Location parseLocation(String locStr){
         String locNormalized = locStr.toLowerCase();
         Location location;
-        return switch (locNormalized) {  //TODO: maybe make this its own method
+        return switch (locNormalized) {
             case "piscataway" -> Location.Piscataway;
             case "bridgewater" -> Location.Bridgewater;
             case "edison" -> Location.Edison;

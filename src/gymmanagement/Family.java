@@ -34,7 +34,6 @@ public class Family extends Member {
         this.guestPasses = this.guestPasses + 1;
     }
 
-    //TODO: membershipFee() should work the same as Member class, just return 59.99 instead
     /**
      * @return the value of the next bill; family fee * 3 months + one-time fee
      */
@@ -42,8 +41,6 @@ public class Family extends Member {
     public double membershipFee() {
         return 29.99 + (59.99 * 3.0);
     }
-
-    //TODO: override toString() to indicate family and show number of passes
 
     /**
      to print Member toString, prints fname, lname, DOB, expire, and location
