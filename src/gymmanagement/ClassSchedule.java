@@ -15,8 +15,8 @@ public class ClassSchedule {
 
     public static final int NOT_FOUND = -1;
 
-    /*
-    no argument constructor
+    /**
+     * no argument constructor
      */
     public ClassSchedule() {
         this.numClasses=0;
@@ -24,10 +24,13 @@ public class ClassSchedule {
 
     }
 
-    /*
-        Returns a reference to a FitnessClass in classes that matches the given FitnessClass
-        The given fitnessClass only requires an fname, lname, and DOB, the other params
-        do not matter for this method.
+
+    /**
+     *  Returns a reference to a FitnessClass in classes that matches the given FitnessClass
+     *  The given fitnessClass only requires an fname, lname, and DOB, the other params
+     *  do not matter for this method.
+     * @param fitnessClass - the fitness class we want the reference for
+     * @return the reference for this fitnessClass
      */
     public FitnessClass getFitnessClass(FitnessClass fitnessClass) {
         if(this.isEmpty()){
@@ -51,7 +54,7 @@ public class ClassSchedule {
     /**
      * given a fitnessClass, if any in current classes has a time conflict with param,
      * then add this class to the conflict array
-     * @param fitnessClass
+     * @param fitnessClass - the fitness class we want to test to see if it has time conflicts
      * @return
      */
     public FitnessClass[] conflicts(FitnessClass fitnessClass){

@@ -40,22 +40,38 @@ public class Member implements Comparable<Member>{
         this.expire = null;
     }
 
+    /**
+     * @return fname
+     */
     public String getFname(){
         return this.fname;
     }
 
+    /**
+     *
+     * @return Lname data field
+     */
     public String getLname(){
         return this.lname;
     }
 
+    /**
+     * @return dob data field
+     */
     public Date getDob(){
         return this.dob;
     }
 
+    /**
+     * @return expire data field
+     */
     public Date getExpire(){
         return this.expire;
     }
 
+    /**
+     * @return location data field
+     */
     public Location getLocation(){
         return this.location;
     }

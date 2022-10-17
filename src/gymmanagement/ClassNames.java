@@ -1,5 +1,10 @@
 package gymmanagement;
 
+
+/**
+ * enum class for the different exercise classes, contains helper method to set the value, and return a
+ * specific constant
+ */
 public enum ClassNames {
     CARDIO,
     SPINNING,
@@ -22,14 +27,14 @@ public enum ClassNames {
     /**
      * sometimes when reading from a txt file, at the beginning of the file, there is this weird thing,
      * this method just checks if it is there and gets rid of it if it is there
-     * @param s
-     * @return
+     * @param fitnessClass - the string we want to remove the value from
+     * @return the string without the weird value
      */
-    public static String removeUTF8BOM(String s) {
-        if (s.startsWith("\uFEFF")) {
-            s = s.substring(1);
+    public static String removeUTF8BOM(String fitnessClass) {
+        if (fitnessClass.startsWith("\uFEFF")) {
+            fitnessClass = fitnessClass.substring(1);
         }
-        return s;
+        return fitnessClass;
     }
 
     /**
