@@ -105,12 +105,12 @@ public class GymManager {
             System.out.println("DOB " + dob.toString() + ": invalid calendar date!");
             return false;
         }
-        if (!dob.over18()) { //returns true if 18 or older
-            System.out.println("DOB " + dob.toString() + ": must be 18 or older to join!");
-            return false;
-        }
         if (dob.futureDateCheck()) { //return true if this.date > current date
             System.out.println("DOB " + dob.toString() + ": cannot be today or a future date!");
+            return false;
+        }
+        if (!dob.over18()) { //returns true if 18 or older
+            System.out.println("DOB " + dob.toString() + ": must be 18 or older to join!");
             return false;
         }
         return true;
@@ -220,24 +220,36 @@ public class GymManager {
             System.out.println(fname + " " + lname + " " + dob.toString() + " is not in the database.");
             return;
         }
+        if (FitnessClass.Instructor.returnInstructor(instructor) == null){
+            System.out.println(instructor + " - instructor does not exist.");
+            return;
+        }
+
         Date expire = dbMember.getExpire();
         if (!expire.futureDateCheck()) {
             System.out.println(fname + " " + lname + " " + dob.toString() + " membership expired.");
             return;
-        } // Fot choiceClass, time is not given
-        FitnessClass choiceClass = classes.getFitnessClass(new FitnessClass(className, instructor, null, location));
+        }
+        FitnessClass choiceClass = classes.getFitnessClass(new FitnessClass(className, instructor, location)); // For choiceClass, time is not given
         if (choiceClass == null) { //checks if class exists
-            System.out.println(className + "  - class does not exist.");
+            System.out.println(className + " - class does not exist.");
             return;
         }
         if (choiceClass.getMember(dbMember) != null) { //check if member is already in the class
             System.out.println(fname + " " + lname + " has already checked in " + choiceClass.getClassName() + ".");
             return;
         }
-        //get list of all conflicting classes
-        FitnessClass[] conflicts = classes.conflicts(choiceClass);
-        //check if member is in those classes
-        timeConflictCheck(conflicts, choiceClass,fname,lname); //new helper method
+
+        if(timeConflictCheck(choiceClass,dbMember))
+            return;
+
+        //TODO: Mary Lindsey checking in BRIDGEWATER, 08807, SOMERSET - standard membership location restriction.
+        if(!locationAllowed(choiceClass, dbMember)) {
+            System.out.println(fname + " " + lname + " checking in " + choiceClass.getLocation()
+                                + " - standard membership location restriction.");
+            return;
+        }
+
         choiceClass.add(dbMember); //having passed all the above checks, adds the member to the chosen class
         System.out.println(fname + " " + lname + " checked in " + choiceClass.getClassName() + ".");
     }
@@ -246,21 +258,26 @@ public class GymManager {
      * helper method that iterates through fitnessClasses that have a time conflict,
      * then goes through the conflicted classes, if they are different, and have same time,
      * but it doesnt check if the member is in both right?
-     * @param conflicts
      * @param choiceClass
-     * @param fname
-     * @param lname
+     * @param member
      */
-    public static void timeConflictCheck(FitnessClass[] conflicts,FitnessClass choiceClass, String fname,String lname){
+    public boolean timeConflictCheck(FitnessClass choiceClass, Member member){
+        //get list of all conflicting classes
+        FitnessClass[] conflicts = classes.conflicts(choiceClass);
         for (FitnessClass aClass : conflicts) {
             if (aClass != null) {
-                if (aClass != choiceClass) { // wouldnt we have to use .equals for fitness Class objs
+                if (!aClass.equals(choiceClass) && (aClass.getMember(member) != null)) {
                     System.out.println(choiceClass.getClassName() + " time conflict -- " +
-                            fname + " " + lname + " has already checked in " + aClass.getClassName() + ".");
-                    return;
+                            member.getFname() + " " + member.getLname() + " has already checked in " + aClass.getClassName() + ".");
+                    return true;
                 }
             }
         }
+        return false;
+    }
+
+    public boolean locationAllowed(FitnessClass choiceClass, Member member){
+        return choiceClass.getLocation() == member.getLocation() || member instanceof Family;
     }
 
 
@@ -304,7 +321,7 @@ public class GymManager {
     private void addClasses() {
         Scanner schedFile;
         try {
-            schedFile = new Scanner(new File("src/classSchedule.txt"));
+            schedFile = new Scanner(new File("classSchedule.txt"));
         } catch (FileNotFoundException e) {
             System.out.println("File classSchedule.txt not found!");
             return;
@@ -312,7 +329,8 @@ public class GymManager {
 
         System.out.println("\n-Fitness classes loaded-");
         while (schedFile.hasNext()) {
-            StringTokenizer lineTokens = new StringTokenizer(schedFile.nextLine());
+            StringTokenizer lineTokens =
+                    new StringTokenizer(schedFile.nextLine().replaceAll("\\p{C}", ""));
 
             String className = lineTokens.nextToken();
             String instructor = lineTokens.nextToken();
@@ -328,7 +346,7 @@ public class GymManager {
     private void loadMembers() {
         Scanner memFile;
         try {
-            memFile = new Scanner(new File("src/memberList.txt"));
+            memFile = new Scanner(new File("memberList.txt"));
         } catch (FileNotFoundException e) {
             System.out.println("File memberList.txt not found!");
             return;
