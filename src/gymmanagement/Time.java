@@ -8,6 +8,11 @@ public enum Time{
     private final int hour;
     private final int minutes;
 
+    /**
+     * constructor for the hour/minute data fields
+     * @param hour - the given hour
+     * @param minutes - the given minutes value
+     */
     Time(int hour, int minutes) {
         this.hour = hour;
         this.minutes = minutes;
@@ -30,6 +35,11 @@ public enum Time{
         return (this.hour == otherTime.hour && this.minutes == otherTime.minutes);
     }
 
+    /**
+     * returns the time that correspond to the given string
+     * @param time - time value in string form
+     * @return
+     */
     public static Time returnTime(String time){
         if(time == null){
             return null;

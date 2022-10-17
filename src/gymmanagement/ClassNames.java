@@ -10,6 +10,11 @@ public enum ClassNames {
     SPINNING,
     PILATES;
 
+    /**
+     * returns the class Name constant for the given string parameter
+     * @param ClassName the string we want the ClassName constant for
+     * @return the class name which corresponds to the given String, returns null if no match
+     */
     public static ClassNames returnClassName(String ClassName){
         String ClassNameUpper = ClassName.toUpperCase();
         ClassNameUpper = removeUTF8BOM(ClassNameUpper);
