@@ -13,6 +13,9 @@ public class Premium extends Family {
         super.incrementGuestPasses();
     }
 
+    /**
+     * @return the membership fee if the class is Premium
+     */
     @Override
     public double membershipFee() {
         return 59.99 * 11.0;

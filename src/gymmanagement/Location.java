@@ -34,7 +34,7 @@ public enum Location{
 
     /**
      * helper method that returns the supplementary information for a given location
-     * @return
+     * @return the string with the full location of the current enum class value
      */
     public String returnFullLocation(){
 

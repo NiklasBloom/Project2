@@ -1,5 +1,9 @@
 package gymmanagement;
 
+/**
+ * enum class for the time constants, Morning, afternoon, and night which each have the corresponding
+ * time value for HH:MM
+ */
 public enum Time{
     MORNING(9 ,30), //MORNING 9:30
     AFTERNOON(14 , 0), //AFTERNOON 14:00
@@ -38,7 +42,7 @@ public enum Time{
     /**
      * returns the time that correspond to the given string
      * @param time - time value in string form
-     * @return
+     * @return the time which matches the given string time, morning, afternoon, or evening
      */
     public static Time returnTime(String time){
         if(time == null){

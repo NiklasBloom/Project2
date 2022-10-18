@@ -188,7 +188,6 @@ public class MemberDatabase {
 
     /**iterates through array, if an element != null, then there is a member existing in
      the list,  return false, if no member exists in whole array, return true
-     *
      * @return true if the mlist is empty, false otherwie
      */
     public boolean isEmpty() {

@@ -13,8 +13,8 @@ public enum Instructor{
 
     /**
      * returns the instructor constant from the given instructor string
-     * @param instructorName
-     * @return
+     * @param instructorName - parameter to be matched with the enum class constants
+     * @return a instructor instance that matches the given parameter instructorname
      */
     public static Instructor returnInstructor(String instructorName){
         String instructorNameNormalized = instructorName.toLowerCase();

@@ -51,9 +51,9 @@ public class FitnessClass {
     /**
      * Constructor for when time isn't specified; still enough info to find a class in the schedule.
      *
-     * @param fitnessClass
-     * @param instructor
-     * @param location
+     * @param fitnessClass - given fitnessClass string to be matched to the enum class constants
+     * @param instructor - given Instructor string to be matched to the enum class constants
+     * @param location - given Location string to be matched to the enum class constants
      */
     public FitnessClass(String fitnessClass, String instructor, String location) {
         this.className = ClassNames.returnClassName(fitnessClass);
@@ -135,6 +135,9 @@ public class FitnessClass {
         return (this.className.returnCapitalized() + " - " + this.instructor + ", " + this.time + ", " + this.location.returnCapitalized());
     }
 
+    /**
+     * @return what the print method prints, used for concatenating strings
+     */
     public String returnPrintStringForTimeConflict() {
         return (this.instructor + ", " + this.time + ", " + this.location.returnFullLocation());
     }
@@ -180,7 +183,7 @@ public class FitnessClass {
     /**
      * Method used for finding if a member reference is in a FitnessClass, returns index or -1.
      *
-     * @param member
+     * @param member - given member we want to search for in our fitnessClass
      * @return the index of the member if in the ArrayList, returns -1 if not in the arrayList
      */
     private int find(Member member) {
@@ -306,7 +309,7 @@ public class FitnessClass {
 
     /**
      * Method used for finding if a member reference is in a FitnessClass, returns index or -1.
-     * @param member
+     * @param member - given guest member we want to search for in our guest arraylist
      * @return the index of the member if in the ArrayList, returns -1 if not in the arrayList
      */
     private int findGuest(Member member) {

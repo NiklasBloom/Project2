@@ -16,15 +16,6 @@ public class Date implements Comparable<Date> {
     public static final int QUARTERCENTENNIAL = 400;
 
 
-    /**
-    create an object with today’s date using the calendar class
-     */
-    public Date() {
-        Calendar c = Calendar.getInstance();
-        this.year = c.get(Calendar.YEAR);
-        this.day = c.get(Calendar.DATE);
-        this.month = c.get(Calendar.MONTH);
-    }
 
     /**
      * This constructor takes a String which should be a date, and converts it to a Date
@@ -97,12 +88,6 @@ public class Date implements Comparable<Date> {
         return Integer.parseInt(year);
     }
 
-
-    /**
-     * getter method for the month if given a date in String format
-     * @param date is a date in String format
-     * @returns an int which is the month of the given date String
-     *
 
     /**
      * getter method for the Day if given a date in String format

@@ -11,11 +11,23 @@ public class Family extends Member {
     /**
      *5 arg constructor, takes fname, lname, dob, expire, location
      */
+
+    /**
+     *  5 argument constructor
+     * @param fname - given fname
+     * @param lname - given lname
+     * @param dob - given dob
+     * @param expire - given expire
+     * @param location - given loc
+     */
     public Family(String fname, String lname, Date dob, Date expire, Location location) {
         super(fname, lname, dob, expire, location);
         this.guestPasses = 1;
     }
 
+    /**
+     * @return number of guestPasses
+     */
     public int getGuestPasses() {
         return this.guestPasses;
     }

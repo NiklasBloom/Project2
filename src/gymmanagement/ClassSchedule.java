@@ -55,7 +55,7 @@ public class ClassSchedule {
      * given a fitnessClass, if any in current classes has a time conflict with param,
      * then add this class to the conflict array
      * @param fitnessClass - the fitness class we want to test to see if it has time conflicts
-     * @return
+     * @return the array of fitness classes which have a time conflict with the given class
      */
     public FitnessClass[] conflicts(FitnessClass fitnessClass){
         if(this.isEmpty()){
@@ -100,9 +100,8 @@ public class ClassSchedule {
     }
 
 
-
-    /*
-    copy array into new array with array numClasses +4
+    /**
+     * grows the array by 4
      */
     private void grow(){
         FitnessClass[] arr = new FitnessClass[this.classes.length+4];
@@ -110,10 +109,10 @@ public class ClassSchedule {
         this.classes = arr;
     }
 
-    /*
-    adds a fitnessClass to the array
-    Returns false if the fitnessClass already exists in the array
-    Checks if capacity of array is full and then inc numClasses by 4 if full
+
+    /**
+     *  adds a fitnessClass to the array
+     * @param fitnessClass - given fitness class we wanna add to our array
      */
     public void add(FitnessClass fitnessClass){
         if(!this.checkCapacity()){ //check capacity if have to increase numClasses by 4
@@ -132,10 +131,16 @@ public class ClassSchedule {
         numClasses++;
     }
 
+    /**
+     * @return true if the numclasses is correct and equals the true classes array length
+     */
     public boolean checkCapacity(){
         return this.numClasses != this.classes.length;
     }
 
+    /**
+     * @return true if the num classes in the array is 0, false otherwise
+     */
     public boolean isEmpty() {
         return this.numClasses == 0;
     }
