@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="GymManager comments">
-      <change beforePath="$PROJECT_DIR$/src/gymmanagement/FitnessClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/FitnessClassTest.java" afterDir="false" />
+    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="Junit testing and comments all done">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,7 +319,21 @@
       <option name="project" value="LOCAL" />
       <updated>1666058828873</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="JUnit testing classes finished">
+      <created>1666059174653</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1666059174653</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Junit testing and comments all done">
+      <created>1666059819749</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1666059819749</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -368,7 +383,9 @@
     <MESSAGE value="junit test classes started" />
     <MESSAGE value="jUnit testing close to done" />
     <MESSAGE value="GymManager comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="GymManager comments" />
+    <MESSAGE value="JUnit testing classes finished" />
+    <MESSAGE value="Junit testing and comments all done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Junit testing and comments all done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
