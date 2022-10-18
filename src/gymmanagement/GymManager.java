@@ -254,6 +254,14 @@ public class GymManager {
         System.out.println();
     }
 
+    /**
+     * This method prints an error message for if a standard member tries to go to another gym which is not alloed
+     * @param choiceClass - the Fitness Class the member is trying to join
+     * @param dbMember - the member from the database
+     * @param fname the given firstname from the cmd line
+     * @param lname the given last name from the cmd line
+     * @return true if location is not allowed, false otherwise
+     */
     public boolean  locationAllowedErrorPrint(FitnessClass choiceClass, Member dbMember, String fname, String lname){
         if(!locationAllowed(choiceClass, dbMember)) {// location is not allowed
             System.out.println(fname + " " + lname + " checking in " + choiceClass.getLocation().returnFullLocation()
@@ -284,14 +292,13 @@ public class GymManager {
         return false;
     }
 
-
-
     /**
      * helper method that iterates through fitnessClasses that have a time conflict,
      * then goes through the conflicted classes, if they are different, and have same time,
-     * but it doesnt check if the member is in both right?
-     * @param choiceClass
-     * @param member
+     * but it doesnt check if the member is in both
+     * @param choiceClass - the class we want to check against other classes for time conflict
+     * @param member - the member to see if they are in the given class and the other class
+     * @return true if there is a time conflict with the given class, false otherwise
      */
     public boolean timeConflictCheck(FitnessClass choiceClass, Member member){
         //get list of all conflicting classes
@@ -308,6 +315,13 @@ public class GymManager {
         return false;
     }
 
+    /**
+     * helper method to see if the Member can join the given class
+     * @param choiceClass - the class the member is trying to join
+     * @param member - the given member, tested to see if they are an instanceof family
+     * in which case they can join any location class
+     * @return true if the location is allowed, false otherwise
+     */
     public boolean locationAllowed(FitnessClass choiceClass, Member member){
         return choiceClass.getLocation() == member.getLocation() || member instanceof Family;
     }
@@ -364,7 +378,7 @@ public class GymManager {
      * Only adds to the Guest ArrayList if not a standard membership, not at a diff location to one on membership instance,
      * guest Passes =/= 0
      *If these conditions are met, then a guest is added, guestpasses are decremented, and printed
-     * @param dataTokens
+     * @param dataTokens - given the tokens from the cmd line which are to be parsed into the different data fields
      */
     private void checkInGuest(StringTokenizer dataTokens) {
         String className = dataTokens.nextToken();
@@ -413,6 +427,11 @@ public class GymManager {
         System.out.println();
     }
 
+    /**
+     * Deals with the DG command to drop a guest from a specific class,
+     * parses through the cmd line tokens and removes the member from the class if certain conditions are met
+     * @param dataTokens - the string from the cmd line which is parsed into the data fields
+     */
     private void dropClassGuest(StringTokenizer dataTokens) {
         String className = new String(dataTokens.nextToken());
         String instructor = dataTokens.nextToken();
@@ -420,16 +439,12 @@ public class GymManager {
         String fname = dataTokens.nextToken();
         String lname = dataTokens.nextToken();
         Date dob = new Date(dataTokens.nextToken());
-
         Member testMember = new Member(fname, lname, dob);
         Member dbMember = DB.getMember(testMember);
         Date expire = dbMember.getExpire();
         Location locationActual = dbMember.getLocation();
-
         FitnessClass temporaryFitnessClass = new FitnessClass(className, instructor, location); //assuming no errors with this
         FitnessClass choiceClass = classes.getFitnessClass(temporaryFitnessClass);
-        //Jonnathan Wei Guest done with the class.
-
         if(dbMember instanceof Premium){
             Premium premiumMemberTemp =  new Premium(fname, lname, dob,expire,locationActual);
             Premium premiumMember = DB.getMemberPremium(premiumMemberTemp);

@@ -39,8 +39,8 @@ public class FitnessClassTest {
         boolean removed = niksGymClass.remove(Nik);
         assertTrue(removed);
 
-        Member Nik1 = new Member("Niklas", "Bloom", new Date("6/2/2000"));
-        boolean removed1 = niksGymClass.remove(Nik1);
+
+        boolean removed1 = niksGymClass.remove(Nik);
         assertFalse(removed1);
 
         Member Nik2 = null;
@@ -51,14 +51,33 @@ public class FitnessClassTest {
 
     @Test
     public void addGuest() {
+
+        //testing adding a member which should have no errors
         Member Nik = new Member("Niklas", "Bloom", new Date("6/2/2000"));
         boolean added = niksGymClass.addGuest(Nik);
         assertTrue(added);
 
+        // adding the same member, which should still be added to the ArrayList and return True
+        Member Nik2 = new Member("Niklas", "Bloom", new Date("6/2/2000"));
+        boolean added2 = niksGymClass.addGuest(Nik2);
+        assertTrue(added2);
+
+        // adding a null member which should return false
+        Member Nik3 = null;
+        boolean added3 = niksGymClass.addGuest(Nik3);
+        assertFalse(added3);
     }
 
     @Test
     public void removeGuest() {
+        //testing adding a member which should have no errors
+        Member Nik = new Member("Niklas", "Bloom", new Date("6/2/2000"));
+        boolean added = niksGymClass.addGuest(Nik);
+        assertTrue(added);
+
+
+        //boolean added = niksGymClass.addGuest(Nik);
+        //assertTrue(added);
 
     }
 
