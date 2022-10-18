@@ -4,6 +4,8 @@ import java.util.Calendar;
 /**
  * enum class for date
  * used as data field for Member parent class
+ * @author Maxim Yacun
+ * @author Niklas Bloom
  */
 public class Date implements Comparable<Date> {
     private int year;
@@ -22,7 +24,7 @@ public class Date implements Comparable<Date> {
      * object
      * @param date which is a date in String format and it is converted to a Date object
      */
-    public Date(String date) { //take “mm/dd/yyyy” and create a Date object
+    public Date(String date) { //take "mm/dd/yyyy" and create a Date object
         if (!date.contains("/")) {//if it does not contain /, then set to zero
             this.month = 0;
             this.day = 0;

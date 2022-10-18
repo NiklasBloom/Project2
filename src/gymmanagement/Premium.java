@@ -5,6 +5,8 @@ public class Premium extends Family {
     /**
      * 5 arg constructor that takes fname, lname, dob, expire, and location, calls on the parent class
      * which is family
+     * @author Maxim Yacun
+     * @author Niklas Bloom
      */
 
     public Premium(String fname, String lname, Date dob, Date expire, Location location) {

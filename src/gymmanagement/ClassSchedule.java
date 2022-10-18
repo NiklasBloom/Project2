@@ -8,6 +8,8 @@ package gymmanagement;
  * go through line by line
  * Initialize fitness classes with the time, intstructor, and location
  * add FitnessClass to the fitnessClass Array
+ * @author Maxim Yacun
+ * @author Niklas Bloom
  */
 public class ClassSchedule {
     private FitnessClass [] classes;

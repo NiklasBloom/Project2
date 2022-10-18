@@ -6,6 +6,8 @@ package gymmanagement;
  * For the month, January, March, May, July, August, October and December, each has 31 days; April,
  * June, September and November, each has 30 days; February has 28 days in a non-leap year, and 29
  * days in a leap year.
+ * @author Maxim Yacun
+ * @author Niklas Bloom
  */
 public class MonthValue {
     public static final int January = 31;//maybe just have to do this

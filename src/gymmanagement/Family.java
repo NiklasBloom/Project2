@@ -4,6 +4,8 @@ package gymmanagement;
 /**
  * subclass of Member,
  * new guest passes data field, keep traks of remaining guest passes for this member
+ * @author Maxim Yacun
+ * @author Niklas Bloom
  */
 public class Family extends Member {
     private int guestPasses;

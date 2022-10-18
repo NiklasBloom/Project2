@@ -4,6 +4,8 @@ package gymmanagement;
  * Class which stores members in a array.
  * This class can add members, remove, find members
  * This class also takes members that are instances of Family members and Premium members
+ * @author Maxim Yacun
+ * @author Niklas Bloom
  */
 public class MemberDatabase {
     private Member [] mlist;
