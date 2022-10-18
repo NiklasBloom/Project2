@@ -269,18 +269,6 @@ public class FitnessClass {
         return false;
     }
 
-    /**
-     * Tests to see if the Member ArrayList contains a specific member
-     * @param member, the member we want to see if is in the Member ArrayList
-     * @return true if the member is in the ArrayList, false otherwise
-     */
-    public boolean contains(Member member){
-        if(this.membersList.contains(member)){
-            return true;
-        } else {
-            return false;
-        }
-    }
 
 
     /**

@@ -232,9 +232,10 @@ public class Date implements Comparable<Date> {
         int CalendarYear = c.get(Calendar.YEAR);
         int CalendarDay = c.get(Calendar.DATE);
         int CalendarMonth = c.get(Calendar.MONTH);
+        System.out.println("year: "+ year + ", month: "+ month + ", day: " + day);
         if (this.year == CalendarYear){
             if (this.month == CalendarMonth){
-                return this.day < CalendarDay;
+                return this.day <= CalendarDay;
             } else return this.month < CalendarMonth;
         } else return this.year < CalendarYear;
     }
@@ -300,15 +301,5 @@ public class Date implements Comparable<Date> {
         }
     }
 
-    /**
-     * testBed main method, for test cases to test the IsValid method
-     * @param args, takes the arguments from cmdline, in this case is none.
-     */
-    public static void main(String[] args) { //testbed main
 
-
-
-
-
-    }
 }

@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="almost all comments done">
-      <change afterPath="$PROJECT_DIR$/src/gymmanagement/DateTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gymmanagement/FitnessClassTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gymmanagement/PremiumTest.java" afterDir="false" />
+    <list default="true" id="09abd9bb-3a90-4a59-bff7-5edb0754cdae" name="Changes" comment="junit test classes started">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Project2.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gymmanagement/Date.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Date.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/DateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/DateTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/FitnessClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/FitnessClassTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gymmanagement/PremiumTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gymmanagement/PremiumTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +61,7 @@
       <recent name="gymmanagement" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DateTest">
+  <component name="RunManager" selected="JUnit.FitnessClassTest">
     <configuration name="RunProject2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gymmanagement.RunProject2" />
       <module name="Project2" />
@@ -90,8 +90,57 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DateTest.over18" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="gymmanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="gymmanagement" />
+      <option name="MAIN_CLASS_NAME" value="gymmanagement.DateTest" />
+      <option name="METHOD_NAME" value="over18" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FitnessClassTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="gymmanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="gymmanagement" />
+      <option name="MAIN_CLASS_NAME" value="gymmanagement.FitnessClassTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PremiumTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Project2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="gymmanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="gymmanagement" />
+      <option name="MAIN_CLASS_NAME" value="gymmanagement.PremiumTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FitnessClassTest" />
+        <item itemvalue="JUnit.DateTest.over18" />
+        <item itemvalue="JUnit.PremiumTest" />
         <item itemvalue="JUnit.DateTest" />
         <item itemvalue="Application.RunProject2" />
       </list>
@@ -253,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666043416431</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="junit test classes started">
+      <created>1666052949422</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1666052949422</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -300,7 +356,8 @@
     <MESSAGE value="fitnessClass and GymManager Comments done" />
     <MESSAGE value="more comments" />
     <MESSAGE value="almost all comments done" />
-    <option name="LAST_COMMIT_MESSAGE" value="almost all comments done" />
+    <MESSAGE value="junit test classes started" />
+    <option name="LAST_COMMIT_MESSAGE" value="junit test classes started" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

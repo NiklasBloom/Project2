@@ -5,19 +5,62 @@ import org.junit.Test;
 
 public class FitnessClassTest {
 
-    @Test
-    public void remove() {
-    }
-
+    FitnessClass niksGymClass = new FitnessClass( "Cardio",  "Kim", "morning", "Edison");
     @Test
     public void add() {
+        //adding new member to class with zero errors, should add and return true
+        Member Nik = new Member("Niklas", "Bloom", new Date("6/2/2000"));
+        boolean added = niksGymClass.add(Nik);
+        assertTrue(added);
+
+        //adding same member thats already in the list, should return false
+        Member Nik1 = new Member("Niklas", "Bloom", new Date("6/2/2000"));
+        boolean added1 = niksGymClass.add(Nik1);
+        assertFalse(added1);
+
+        //Member is null, should return false
+        Member Nik2 = null;
+        boolean added2 = niksGymClass.add(Nik2);
+        assertFalse(added2);
+
+
+
+
+    }
+    @Test
+    public void remove() {
+        //adding new member to then remove from the fitnessClass to test remove method
+        Member InitialNik = new Member("Niklas", "Bloom", new Date("6/2/2000"));
+        boolean add = niksGymClass.add(InitialNik);
+        assertTrue(add);
+
+        //adding new member to class with zero errors, should add and return true
+        Member Nik = new Member("Niklas", "Bloom", new Date("6/2/2000"));
+        boolean removed = niksGymClass.remove(Nik);
+        assertTrue(removed);
+
+        Member Nik1 = new Member("Niklas", "Bloom", new Date("6/2/2000"));
+        boolean removed1 = niksGymClass.remove(Nik1);
+        assertFalse(removed1);
+
+        Member Nik2 = null;
+        boolean removed2 = niksGymClass.remove(Nik2);
+        assertFalse(removed2);
+    }
+
+
+    @Test
+    public void addGuest() {
+        Member Nik = new Member("Niklas", "Bloom", new Date("6/2/2000"));
+        boolean added = niksGymClass.addGuest(Nik);
+        assertTrue(added);
+
     }
 
     @Test
     public void removeGuest() {
+
     }
 
-    @Test
-    public void addGuest() {
-    }
+
 }

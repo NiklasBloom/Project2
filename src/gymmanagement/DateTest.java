@@ -67,14 +67,14 @@ public class DateTest {
     public void over18() {
         //date more than 18 years old
         Date date = new Date("6/2/2000");
-        assertTrue(date.isValid());
+        assertTrue(date.over18());
 
-        //exactly 18 years ago
+        //exactly 18 years ago, so not over18
         Date date1 = new Date("10/17/2004");
-        assertTrue(date1.isValid());
+        assertFalse(date1.over18());
 
         //exactly 18 years ago + 1 day
-        Date date2 = new Date("10/18/2020");
-        assertFalse(date2.isValid());
+        Date date2 = new Date("10/18/2004");
+        assertFalse(date2.over18());
     }
 }
