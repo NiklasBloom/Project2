@@ -1,5 +1,11 @@
 package gymmanagement;
 
+/**
+ * Defines a standard Member with attributes and methods used for creating and comparing members.
+ * Superclass of Premium and Family
+ * @author Maxim Yacun
+ * @author Niklas Bloom
+ */
 public class Member implements Comparable<Member>{
     private String fname;
     private String lname;

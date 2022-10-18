@@ -4,6 +4,8 @@ package gymmanagement;
 /**
  * enum class for the different location values,
  * contains helper methods to return the enum constants depending on the given string.
+ * @author Maxim Yacun
+ * @author Niklas Bloom
  */
 public enum Location{
     Bridgewater,

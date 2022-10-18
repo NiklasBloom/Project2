@@ -17,9 +17,11 @@ invalid, or the fitness class does not exist.
 
 S command, display the fitness class schedule. A fitness class shall include the fitness class name, instructor’s
 name, the time of the class, and the list of members who have already checked in today. For simplicity, assuming
-the schedule is for “today” only, you do not need to handle a multiple-day schedule.
+ the schedule is for "today" only, you do not need to handle a multiple-day schedule.
 
  This method now includes two Arraylists which hold the members and guests for a specific FitnessClass
+ * @author Maxim Yacun
+ * @author Niklas Bloom
  */
 
 public class FitnessClass {

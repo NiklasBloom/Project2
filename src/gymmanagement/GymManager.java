@@ -16,6 +16,8 @@ import java.util.StringTokenizer;
 
 /**
  * Defines a GymManager object with the main run() method, helpers to execute commands, and databases to store information.
+ * @author Maxim Yacun
+ * @author Niklas Bloom
  */
 public class GymManager {
     private MemberDatabase DB;
@@ -262,7 +264,7 @@ public class GymManager {
      * @param lname the given last name from the cmd line
      * @return true if location is not allowed, false otherwise
      */
-    public boolean  locationAllowedErrorPrint(FitnessClass choiceClass, Member dbMember, String fname, String lname){
+    private boolean  locationAllowedErrorPrint(FitnessClass choiceClass, Member dbMember, String fname, String lname){
         if(!locationAllowed(choiceClass, dbMember)) {// location is not allowed
             System.out.println(fname + " " + lname + " checking in " + choiceClass.getLocation().returnFullLocation()
                     + " - standard membership location restriction.");
@@ -274,18 +276,18 @@ public class GymManager {
     /**
      * helper method to help the check in method with print functions for printing the errors of a new fitnessClass
      * Reports error if Classname, instructor, location is null
-     * @param fitnessclass, which is the fitness Class we want to check for errors.
+     * @param fitnessClass, which is the fitness Class we want to check for errors.
      */
-    public boolean printFitnessClassError(FitnessClass fitnessclass, String className, String instructor, String location){
-        if (fitnessclass.getClassName() == null) { //checks if class exists
+    private boolean printFitnessClassError(FitnessClass fitnessClass, String className, String instructor, String location){
+        if (fitnessClass.getClassName() == null) { //checks if class exists
             System.out.println(className + " - class does not exist.");
             return true;
         }
-        if (fitnessclass.getLocation() == null) { //checks if loc exists
+        if (fitnessClass.getLocation() == null) { //checks if loc exists
             System.out.println(location + " - invalid location.");
             return true;
         }
-        if (fitnessclass.getInstructor() == null) { //checks if loc exists
+        if (fitnessClass.getInstructor() == null) { //checks if loc exists
             System.out.println(instructor + " - instructor does not exist.");
             return true;
         }
@@ -300,7 +302,7 @@ public class GymManager {
      * @param member - the member to see if they are in the given class and the other class
      * @return true if there is a time conflict with the given class, false otherwise
      */
-    public boolean timeConflictCheck(FitnessClass choiceClass, Member member){
+    private boolean timeConflictCheck(FitnessClass choiceClass, Member member){
         //get list of all conflicting classes
         FitnessClass[] conflicts = classes.conflicts(choiceClass);
         for (FitnessClass aClass : conflicts) {
@@ -322,7 +324,7 @@ public class GymManager {
      * in which case they can join any location class
      * @return true if the location is allowed, false otherwise
      */
-    public boolean locationAllowed(FitnessClass choiceClass, Member member){
+    private boolean locationAllowed(FitnessClass choiceClass, Member member){
         return choiceClass.getLocation() == member.getLocation() || member instanceof Family;
     }
 

@@ -3,6 +3,8 @@ package gymmanagement;
 /**
  * enum class for the time constants, Morning, afternoon, and night which each have the corresponding
  * time value for HH:MM
+ * @author Maxim Yacun
+ * @author Niklas Bloom
  */
 public enum Time{
     MORNING(9 ,30), //MORNING 9:30

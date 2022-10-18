@@ -4,6 +4,8 @@ package gymmanagement;
 /**
  * enum class for the different exercise classes, contains helper method to set the value, and return a
  * specific constant
+ * @author Maxim Yacun
+ * @author Niklas Bloom
  */
 public enum ClassNames {
     CARDIO,

@@ -3,6 +3,8 @@ package gymmanagement;
 /**
  * enum class for the different constructor and helper methods
  * used as a data field for FitnessClass
+ * @author Maxim Yacun
+ * @author Niklas Bloom
  */
 public enum Instructor{
     JENNIFER,
